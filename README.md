@@ -13,4 +13,4 @@ The frontend connects to ROS in the backend to get all of the robots status and 
     - `npm i`
 
 * Run the front end
-    -  `npm start`
+    - `npm start`
