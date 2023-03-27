@@ -1,7 +1,7 @@
 <launch>
-    <!--
-    <node pkg="ros-api" type="Robot.py" name="listener" output="screen"/>
-    --> 
+    
+    <node pkg="ros-api" type="Robot.py" name="Robot" output="screen"/>
+   
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
       <arg name="port" value="9090"/>
     </include>
