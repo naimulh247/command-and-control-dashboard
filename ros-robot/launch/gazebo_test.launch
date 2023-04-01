@@ -1,7 +1,0 @@
- <!-- FOR TESTING IN GAZEBO -->
- <!-- Use command: roslaunch ros-robot gazebo_test.launch -->
-<launch> 
-   
-    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"></include>
-
-</launch>
