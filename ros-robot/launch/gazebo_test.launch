@@ -1,0 +1,13 @@
+ <!-- FOR TESTING IN GAZEBO -->
+ <!-- Use command: roslaunch ros-robot gazebo_test.launch -->
+<launch> 
+   
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch">
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+</launch>
