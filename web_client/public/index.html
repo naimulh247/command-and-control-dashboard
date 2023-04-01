@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <script type="text/javascript" src="https://static.robotwebtools.org/EaselJS/current/easeljs.min.js"></script>
+    <script type="text/javascript" src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <script type="text/javascript" src="https://static.robotwebtools.org/ros2djs/current/ros2d.js"></script>
+
+    <script type="text/javascript" type="text/javascript">
+      /**
+       * Setup all visualization elements when the page is loaded.
+       */
+      function init() {
+        // Connect to ROS.
+        var ros = new ROSLIB.Ros({
+          url : 'ws://0.0.0.0:9090'
+        });
+    
+        // Create the main viewer.
+        var viewer = new ROS2D.Viewer({
+          divID : 'map',
+          width : 1500,
+          height : 1500
+        });
+    
+        // Setup the map client.
+        var gridClient = new ROS2D.OccupancyGridClient({
+          ros : ros,
+          rootObject : viewer.scene,
+        //   continuous: true
+        });
+    
+        // Scale the canvas to fit to the map
+        gridClient.on('change', function(){
+          viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+          viewer.shift(gridClient.currentGrid.pose.position.x, gridClient.currentGrid.pose.position.y);
+        });
+    
+        var robotMarker = new ROS2D.NavigationArrow({
+            size : 0.25,
+            strokeSize : 0.05,
+            pulse: true
+        });
+    
+        var poseTopic = new ROSLIB.Topic({
+            ros: ros,
+            name: '/amcl_pose',
+            messageType: 'geometry_msgs/PoseWithCovarianceStamped'
+        });
+    
+    
+        poseTopic.subscribe(
+            function(pose) {
+                console.log('subscribing to pose...')
+                robotMarker.x = pose.pose.pose.position.x;
+                robotMarker.y = -pose.pose.pose.position.y;
+                var quaZ = pose.pose.pose.orientation.z;
+                var degreeZ = 0;
+    
+                if( quaZ >= 0 ) {
+                    degreeZ = quaZ / 1 * 180
+                    console.log('degreeZPositive: ' + degreeZ)
+                } else {
+                    degreeZ = (-quaZ) / 1 * 180 + 180
+                    console.log('degreeZNegative: ' + degreeZ)
+                };
+                robotMarker.rotation = -degreeZ + 35;
+            }
+        );
+    
+    
+        console.dir(robotMarker);
+        gridClient.rootObject.addChild(robotMarker);
+    
+      }
+    </script>
+    <title>Campus Rover</title>
+  </head>
+  <body onload="init()">
+    <nav class='navbar navbar-dark bg-dark'>
+      <a class="navbar-brand" href="/">Campus Rover</a>
+    </nav>
+    <div id="root"></div>
+    <div id="map"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

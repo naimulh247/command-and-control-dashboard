@@ -1,0 +1,12 @@
+.robot-vitals {
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.robot-vitals-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 0px;
+}

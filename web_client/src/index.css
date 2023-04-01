@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.teleop-data {
+  margin-top: 15px;
+}
+
+.teleop-data table {
+  font-size: 30px;
+}
+
+.data-title {
+  text-align: right;
+}
+
+.teleop-arrows-title {
+  margin: 15px 0;
+}
+
+.green-text {
+  color: green;
+}
+
+.red-text {
+  color: red;
+}
+
+.ros-connect {
+  margin-top: 30px;
+}
+
+.ros-connect form {
+  display: block;
+  text-align: center;
+}
+
+.video-feed {
+  height: 100%;
+  width: 100%;
+}
+
+.md-margin-top {
+  margin-top: 30px;
+}
+
+.inactive-arrow {
+  opacity: 0.5;
+}
+
+.active-arrow {
+  opacity: 1;
+}
+
+.teleop-arrows .row {
+  margin-bottom: 20px;
+}
+
+.teleop-arrows img {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.progressbar-container {
+  background-color: lightgray;
+}
+
+.text-bold {
+  font-weight: bold;
+}

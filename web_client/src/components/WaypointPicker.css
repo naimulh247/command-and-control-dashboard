@@ -1,0 +1,12 @@
+.waypoint-picker {
+    margin-top: 20px;
+}
+
+.waypoint-picker label {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.waypoint-picker button {
+    width: 100%;
+}
