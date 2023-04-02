@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
-
+import { Container } from 'react-bootstrap';
+import { Joystick } from 'react-joystick-component'
 class Teleop extends Component {
-    state = {  } 
-    render() { 
+    state = {}
+
+    handleMove() {}
+
+    handleStop() {}
+    render() {
         return (
-            <h2>Telop</h2>
+            <Container>
+                <Joystick 
+                size={100} 
+                baseColor="#EEEEEE" 
+                stickColor="#BBBBBB" 
+                move={this.handleMove} 
+                stop={this.handleStop}
+                ></Joystick>
+            </Container>
         );
     }
 }
- 
+
 export default Teleop;
