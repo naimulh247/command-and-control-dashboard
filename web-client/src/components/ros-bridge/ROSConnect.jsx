@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
+import ros_config from '../../configs/ros_config';
 
 class ROSConnect extends Component {
 
@@ -26,16 +27,16 @@ class ROSConnect extends Component {
             setTimeout(() => {
                 try{
                     // change the ip address to local storage
-                    this.state.ros.connect('ws://127.0.0.1:9090')
+                    this.state.ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
                 }catch (error) {
                     console.log("connection error:", error);
                 }
-            }, 3000); 
+            }, ros_config.RECONNECTION_TIMEOUT); 
         })
 
         try{
             // change the ip address to local storage
-            this.state.ros.connect('ws://127.0.0.1:9090')
+            this.state.ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
         }catch (error) {
             console.log("connection error:", error);
         }
