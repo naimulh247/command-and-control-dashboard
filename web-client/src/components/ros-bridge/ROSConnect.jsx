@@ -4,30 +4,32 @@ import ros_config from '../../configs/ros_config';
 
 class ROSConnect extends Component {
 
-    constructor() {
-        super()
-        this.state = { connected: false, ros: null } 
-        
+    constructor(props) {
+        super(props);
+        this.state = { connected : false}
     }
 
     componentDidMount() {
         this.init_connection()
     }
+
     init_connection() {
-        this.state.ros = new window.ROSLIB.Ros()
-        this.state.ros.on("connection", () => {
+        const ros = new window.ROSLIB.Ros();
+        this.props.setRos(ros);
+
+        ros.on("connection", () => {
             console.log("robot connected")
-            this.setState({connected: true})
+            this.setState({connected : true})
         })
 
-        this.state.ros.on("close", () => {
+        ros.on("close", () => {
             console.log("robot disconnected");
-            this.setState({connected: false})
+            this.setState({connected : false});
             // try to reconnect to rosbridge every 3 seconds
             setTimeout(() => {
                 try{
                     // change the ip address to local storage
-                    this.state.ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
+                    ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
                 }catch (error) {
                     console.log("connection error:", error);
                 }
@@ -36,12 +38,12 @@ class ROSConnect extends Component {
 
         try{
             // change the ip address to local storage
-            this.state.ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
+            ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
         }catch (error) {
             console.log("connection error:", error);
         }
 
-        console.log(this.state.ros);
+        // console.log(ros);
 
     }
 
