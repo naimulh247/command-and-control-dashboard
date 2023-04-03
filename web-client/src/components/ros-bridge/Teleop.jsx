@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { Joystick } from 'react-joystick-component'
+import ros_config from '../../configs/ros_config';
 class Teleop extends Component {
     
     constructor(props) {
@@ -29,10 +30,10 @@ class Teleop extends Component {
             console.warn("ROS/ RosBridge not intialized")
             return
         }
-
+        // console.log(ros_config.ROSBRIDGE_CMD_VEL, event);
         const cmd_vel = new window.ROSLIB.Topic({
             ros: ros,
-            name: '/turtle1/cmd_vel',
+            name: `${ros_config.ROSBRIDGE_CMD_VEL}`,
             messageType: 'geometry_msgs/Twist',
         });
 
