@@ -8,6 +8,8 @@ class Teleop extends Component {
         // const { ros } = this.ros
         // bind the this key word to make sure we have access to ros connection from ROSConnect
         this.handleMove = this.handleMove.bind(this);
+        this.handleStop = this.handleStop.bind(this);
+
 
         // console.log(this.props);
     }
@@ -18,9 +20,10 @@ class Teleop extends Component {
         // console.log(this.props);
     }
 
-    handleMove() {
+    handleMove(event) {
         const { ros } = this.props
-        console.log(ros);
+        // console.log(ros);
+        // console.log(event)
         // is ros is not intialized return
         if (!ros) {
             console.warn("ROS/ RosBridge not intialized")
@@ -35,14 +38,14 @@ class Teleop extends Component {
 
         const twist = new window.ROSLIB.Message({
             linear: {
-                x: 0.5,
+                x: event.y ,
                 y: 0,
                 z: 0,
             },
             angular: {
-                x: 0.2,
+                x: 0,
                 y: 0,
-                z: 0,
+                z: -event.x,
             },
         });
 
@@ -50,7 +53,34 @@ class Teleop extends Component {
 
     }
 
-    handleStop() {
+    handleStop(event) {
+        // handleStop takes care of drifting issue, where the robot moves eventhough the joystick stopped
+        const { ros } = this.props
+        if (!ros) {
+            console.warn("ROS/ RosBridge not intialized")
+            return
+        }
+
+        const cmd_vel = new window.ROSLIB.Topic({
+            ros: ros,
+            name: '/turtle1/cmd_vel',
+            messageType: 'geometry_msgs/Twist',
+        });
+
+        const twist = new window.ROSLIB.Message({
+            linear: {
+                x: 0,
+                y: 0,
+                z: 0,
+            },
+            angular: {
+                x: 0,
+                y: 0,
+                z: 0,
+            },
+        });
+
+        cmd_vel.publish(twist)
 
     }
     render() {
