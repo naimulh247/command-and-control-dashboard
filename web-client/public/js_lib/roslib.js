@@ -1462,7 +1462,7 @@
           if (arguments[1] instanceof Error) {
             throw arguments[1]; // Unhandled 'error' event
           } else {
-            throw new Error("Uncaught, unspecified 'error' event.");
+            // throw new Error("Uncaught, unspecified 'error' event.");
           }
         }
     
