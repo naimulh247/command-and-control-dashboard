@@ -24,7 +24,7 @@ class Teleop extends Component {
     handleMove(event) {
         const { ros } = this.props
         // console.log(ros);
-        // console.log(event)
+        // console.log(event);
         // is ros is not intialized return
         if (!ros) {
             console.warn("ROS/ RosBridge not intialized")
@@ -55,6 +55,8 @@ class Teleop extends Component {
     }
 
     handleStop(event) {
+        console.log(event);
+
         // handleStop takes care of drifting issue, where the robot moves eventhough the joystick stopped
         const { ros } = this.props
         if (!ros) {
@@ -64,7 +66,7 @@ class Teleop extends Component {
 
         const cmd_vel = new window.ROSLIB.Topic({
             ros: ros,
-            name: '/turtle1/cmd_vel',
+            name: `${ros_config.ROSBRIDGE_CMD_VEL}`,
             messageType: 'geometry_msgs/Twist',
         });
 
@@ -80,7 +82,7 @@ class Teleop extends Component {
                 z: 0,
             },
         });
-
+        console.log(twist);
         cmd_vel.publish(twist)
 
     }
