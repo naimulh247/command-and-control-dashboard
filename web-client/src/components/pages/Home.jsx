@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ROSConnect from '../ros-bridge/ROSConnect';
 import Teleop from '../ros-bridge/Teleop';
 import { Col, Container, Row } from 'react-bootstrap';
+import RobotState from '../ros-bridge/RobotState';
+import Map from '../ros-bridge/Map';
 
 class Home extends Component {
     constructor(props) {
@@ -14,10 +16,12 @@ class Home extends Component {
 
     setRos(ros) {
         this.setState({ ros });
-        console.log(ros);
+        // console.log(ros);
     }
 
     render() { 
+        // console.log(this.state.ros)
+        const {ros} = this.state
         return (
             <main>
                 <Container>
@@ -28,7 +32,15 @@ class Home extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Teleop ros={this.state.ros}/>
+                            <Teleop ros={ros}/>
+                        </Col>
+                        <Col>
+                            <Map ros={ros}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <RobotState ros={ros}/>
                         </Col>
                     </Row>
                 </Container>
