@@ -90,11 +90,11 @@ class Teleop extends Component {
         return (
             <Container>
                 <Joystick 
-                size={100} 
-                baseColor="#EEEEEE" 
-                stickColor="#BBBBBB" 
-                move={this.handleMove} 
-                stop={this.handleStop}
+                    size={100} 
+                    baseColor="#EEEEEE" 
+                    stickColor="#BBBBBB" 
+                    move={this.handleMove} 
+                    stop={this.handleStop}
                 ></Joystick>
             </Container>
         );

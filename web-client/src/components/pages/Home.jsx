@@ -4,6 +4,8 @@ import Teleop from '../ros-bridge/Teleop';
 import { Col, Container, Row } from 'react-bootstrap';
 import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
+import VideoFeed from '../ros-bridge/VideoFeed';
+import ros_config from '../../configs/ros_config';
 
 class Home extends Component {
     constructor(props) {
@@ -26,21 +28,21 @@ class Home extends Component {
             <main>
                 <Container>
                     <Row>
-                        <Col>
-                            <ROSConnect setRos={this.setRos}/>
+                        <Col md={8}>
+                            <VideoFeed ip={ros_config.ROSBRIDGE_SERVER_IP}/>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        <Col md={4}>
                             <Teleop ros={ros}/>
                         </Col>
+                    </Row>
+                    <Row style={{marginTop: "250px"}}>
                         <Col>
-                            <Map ros={ros}/>
+                            <RobotState ros={ros}/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <RobotState ros={ros}/>
+                            <ROSConnect setRos={this.setRos}/>
                         </Col>
                     </Row>
                 </Container>
