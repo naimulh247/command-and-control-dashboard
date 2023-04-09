@@ -24,7 +24,7 @@ main {
 .bgStyle {
   background-color: rgb(230, 255, 255);
   max-width: 200px;
-  margin: 10px;
+  margin: 2%;
 }
 
 .connected {
