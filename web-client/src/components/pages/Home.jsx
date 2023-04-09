@@ -6,6 +6,7 @@ import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
 import ros_config from '../../configs/ros_config';
+import ManualTeleop from '../ManualTeleop';
 
 class Home extends Component {
     constructor(props) {
@@ -27,22 +28,23 @@ class Home extends Component {
         return (
             <main>
                 <Container>
-                    <Row>
+                    <Row style={{marginTop: "2%"}}>
                         <Col md={8}>
                             <VideoFeed ip={ros_config.ROSBRIDGE_SERVER_IP}/>
                         </Col>
                         <Col md={4}>
+                            <ROSConnect setRos={this.setRos}/>
+                        </Col>
+                        <Col style={{marginLeft: "79%"}}>
                             <Teleop ros={ros}/>
                         </Col>
                     </Row>
-                    <Row style={{marginTop: "22%"}}>
+                    <Row style={{marginTop: "14%"}}>
                         <Col>
                             <RobotState ros={ros}/>
                         </Col>
-                    </Row>
-                    <Row>
                         <Col>
-                            <ROSConnect setRos={this.setRos}/>
+                            <ManualTeleop ros={ros}/>
                         </Col>
                     </Row>
                 </Container>
