@@ -35,7 +35,7 @@ class Home extends Component {
                             <Teleop ros={ros}/>
                         </Col>
                     </Row>
-                    <Row style={{marginTop: "250px"}}>
+                    <Row style={{marginTop: "22%"}}>
                         <Col>
                             <RobotState ros={ros}/>
                         </Col>
