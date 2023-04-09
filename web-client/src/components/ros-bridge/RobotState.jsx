@@ -11,6 +11,7 @@ class RobotState extends Component {
     state = { 
         x: 0,
         y: 0,
+        z: 0,
         orientation: 0,
         linear_velocity: 0,
         angular_velocity: 0,
@@ -69,6 +70,7 @@ class RobotState extends Component {
             this.setState({
                 x: message.pose.pose.position.x.toFixed(2),
                 y: message.pose.pose.position.y.toFixed(2),
+                z: message.pose.pose.position.z.toFixed(2),
                 orientation: this.getOrientation(message.pose.pose.orientation).toFixed(2),
                 linear_velocity: message.twist.twist.linear.x.toFixed(2),
                 angular_velocity: message.twist.twist.angular.z.toFixed(2),
@@ -84,12 +86,13 @@ class RobotState extends Component {
                         <h4 className='mt-4'>Position</h4>
                         <p className='mt-0'>x: {this.state.x} </p>
                         <p className='mt-0'>y: {this.state.y} </p>
+                        <p className='mt-0'>z: {this.state.z} </p>
                         <p className='mt-0'>Orientation: {this.state.orientation} </p>
                     </Col>
                     <Col className='bgStyle'>
                         <h4 className='mt-4'>Velocities</h4>
                         <p className='mt-0'>Linear velocity: {this.state.linear_velocity} </p>
-                        <p className='mt-0'>Angular verosity: {this.state.angular_velocity} </p>
+                        <p className='mt-0'>Angular velocity: {this.state.angular_velocity} </p>
                     </Col>
                 </Row>
                
