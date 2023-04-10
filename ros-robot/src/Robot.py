@@ -22,6 +22,8 @@ def rostopic_list_publisher():
     pub = rospy.Publisher('/rostopic_list', String, queue_size=10)
     rate = rospy.Rate(1) # 1 Hz
 
+    print("[INFO] Robot.py node has been started!")
+
     while not rospy.is_shutdown():
         topics = get_ros_topics()
         message = ",".join(topics)
