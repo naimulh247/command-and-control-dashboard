@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import * as Three from 'three'
+import ros_config from '../../configs/ros_config';
+
 class RobotState extends Component {
 
     constructor(props) {
@@ -62,7 +64,7 @@ class RobotState extends Component {
         // get position and velocity using odom
         const odom_subscriber = new window.ROSLIB.Topic({
             ros: ros,
-            name: "/odom",
+            name: `${ros_config.ROSBRIDGE_ODOM}`,
             messageType: "nav_msgs/Odometry",
         });
     

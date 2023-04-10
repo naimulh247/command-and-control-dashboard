@@ -1,4 +1,5 @@
 import React from 'react';
+import ros_config from '../../configs/ros_config';
 
 class RosTopicList extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class RosTopicList extends React.Component {
 
         const topicList = new window.ROSLIB.Topic({
         ros: ros,
-        name: '/rostopic_list',
+        name: `${ros_config.ROSBRIDGE_ROSTOPICS_LIST}`,
         messageType: 'std_msgs/String',
         });
 
