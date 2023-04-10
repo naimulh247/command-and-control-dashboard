@@ -1,23 +1,35 @@
 #!/usr/bin/env python
 
-import rospy, cv2, cv_bridge, numpy
-from sensor_msgs.msg import Image
-from geometry_msgs.msg import Twist
-from fiducial_msgs.msg import FiducialTransformArray
+import rospy
+from std_msgs.msg import String
+import subprocess
 
-import math
+def get_ros_topics():
+    """
+    Returns a list of active ROS topics using the `rostopic list` command.
+    """
+    command = "rostopic list"
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    topics = output.decode().split("\n")[:-1] # remove empty last element
+    return topics
 
-class Robot:
-    def __init__(self):
-        self.bridge = cv_bridge.CvBridge()
-        self.cmd_vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size=1)
-        self.web_input = rospy.Subscriber('cmd_vel_mux/input/teleop', Twist, self.web_input_callback)
-        #self.twist = Twist()
-    
-    def web_input_callback(self, data):
-        self.cmd_vel_pub.publish(data)
+def rostopic_list_publisher():
+    """
+    ROS node that publishes the list of active ROS topics as a string message.
+    """
+    rospy.init_node('rostopic_list_publisher', anonymous=True)
+    pub = rospy.Publisher('/rostopic_list', String, queue_size=10)
+    rate = rospy.Rate(1) # 1 Hz
 
-rospy.init_node('Robot')
-follower = Robot()
-print("Robot.py node is running!")
-rospy.spin()
+    while not rospy.is_shutdown():
+        topics = get_ros_topics()
+        message = ",".join(topics)
+        pub.publish(message)
+        rate.sleep()
+
+if __name__ == '__main__':
+    try:
+        rostopic_list_publisher()
+    except rospy.ROSInterruptException:
+        pass
