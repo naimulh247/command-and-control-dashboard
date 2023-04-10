@@ -81,14 +81,14 @@ class RobotState extends Component {
     render() { 
         return (
             <Row >
-                <Col className='bgStyle'>
+                <Col className='bgStyle title'>
                     <h4 className='mt-4'>Positions</h4>
                     <p className='mt-0'>x: {this.state.x} </p>
                     <p className='mt-0'>y: {this.state.y} </p>
                     <p className='mt-0'>z: {this.state.z} </p>
                     <p className='mt-0'>Orientation: {this.state.orientation} </p>
                 </Col>
-                <Col className='bgStyle'>
+                <Col className='bgStyle title'>
                     <h4 className='mt-4'>Velocities</h4>
                     <p className='mt-0'>Linear velocity: {this.state.linear_velocity} </p>
                     <p className='mt-0'>Angular velocity: {this.state.angular_velocity} </p>

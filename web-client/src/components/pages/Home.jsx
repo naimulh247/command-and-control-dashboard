@@ -6,7 +6,7 @@ import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
 import ros_config from '../../configs/ros_config';
-import ManualTeleop from '../ManualTeleop';
+import ManualTeleop from '../ros-bridge/ManualTeleop';
 
 class Home extends Component {
     constructor(props) {

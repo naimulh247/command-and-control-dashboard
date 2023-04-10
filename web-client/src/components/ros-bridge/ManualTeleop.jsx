@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import ros_config from '../configs/ros_config';
+import ros_config from '../../configs/ros_config';
 
 class ManualTeleop extends Component {
     constructor(props) {
