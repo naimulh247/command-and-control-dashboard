@@ -80,7 +80,7 @@ class RobotState extends Component {
     
     render() { 
         return (
-            <Row >
+            <Row>
                 <Col className='bgStyle title'>
                     <h4 className='mt-4'>Positions</h4>
                     <p className='mt-0'>x: {this.state.x} </p>

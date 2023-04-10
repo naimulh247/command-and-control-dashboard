@@ -7,6 +7,7 @@ import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
 import ros_config from '../../configs/ros_config';
 import ManualTeleop from '../ros-bridge/ManualTeleop';
+import RosTopicList from '../ros-bridge/RosTopicList';
 
 class Home extends Component {
     constructor(props) {
@@ -42,6 +43,7 @@ class Home extends Component {
                     <Row style={{marginTop: "14%"}}>
                         <Col>
                             <RobotState ros={ros}/>
+                            <RosTopicList ros={ros}/>
                         </Col>
                         <Col>
                             <ManualTeleop ros={ros}/>

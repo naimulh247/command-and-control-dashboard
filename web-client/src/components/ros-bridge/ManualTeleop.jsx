@@ -9,7 +9,7 @@ class ManualTeleop extends Component {
 
     publishTwist() {
         const { ros } = this.props
-        // is ros is not intialized return
+        // if ros is not intialized return
         if (!ros) {
             console.warn("ROS/ RosBridge not intialized")
             return

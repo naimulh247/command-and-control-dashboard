@@ -58,6 +58,52 @@ main {
   padding: 5%
 }
 
+.showTopics {
+  position: relative;
+}
+
+.showTopics button {
+  background-color: rgb(56, 56, 56);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.showTopics button:hover {
+  background-color: rgb(107, 107, 107);
+  color: white;
+}
+
+.showTopics ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f1f1f1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  z-index: 1;
+}
+
+.showTopics ul li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.showTopics ul li:hover {
+  background-color: #ddd;
+}
+
+
 /* CSS from https://getcssscan.com/css-buttons-examples*/
 .button-3 {
   appearance: none;
