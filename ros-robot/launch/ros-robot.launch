@@ -1,6 +1,6 @@
 <launch>
     
-    <!-- <node pkg="ros-robot" type="Robot.py" name="Robot" output="screen"/> no need for this node anymore potentially since we are publishing directly from web client-->
+    <node pkg="ros-robot" type="Robot.py" name="Robot" output="screen"/>
    
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
       <arg name="port" value="9090"/>
