@@ -27,14 +27,14 @@ class Home extends Component {
             <main>
                 <Container>
                     <Row>
-                        <Col>
-                            <ROSConnect setRos={this.setRos}/>
+                        <Col md={8}>
+                            <VideoFeed ip={ros_config.ROSBRIDGE_SERVER_IP}/>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        <Col md={4}>
                             <Teleop ros={ros}/>
                         </Col>
+                    </Row>
+                    <Row style={{marginTop: "250px"}}>
                         <Col>
                             <Map ros={ros}/>
                             <VideoFeed ros={ros} />
@@ -42,7 +42,7 @@ class Home extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <RobotState ros={ros}/>
+                            <ROSConnect setRos={this.setRos}/>
                         </Col>
                     </Row>
                 </Container>

@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import {Container} from 'react-bootstrap'
+
 class Settings extends Component {
-    state = {  } 
     render() { 
         return (
-            <h1>Settings</h1>
+            <div>
+                <h1 id="-project-command-control-"><strong>Settings Page</strong></h1>
+            </div>
         );
     }
 }

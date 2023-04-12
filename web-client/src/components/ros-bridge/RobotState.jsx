@@ -80,20 +80,19 @@ class RobotState extends Component {
         return (
             <div>
                 <Row>
-                    <Col>
+                    <Col className='bgStyle'>
                         <h4 className='mt-4'>Position</h4>
                         <p className='mt-0'>x: {this.state.x} </p>
                         <p className='mt-0'>y: {this.state.y} </p>
                         <p className='mt-0'>Orientation: {this.state.orientation} </p>
                     </Col>
-                </Row>
-                <Row>
-                    <Col>
+                    <Col className='bgStyle'>
                         <h4 className='mt-4'>Velocities</h4>
                         <p className='mt-0'>Linear velocity: {this.state.linear_velocity} </p>
                         <p className='mt-0'>Angular verosity: {this.state.angular_velocity} </p>
                     </Col>
                 </Row>
+               
             </div>
         );
     }
