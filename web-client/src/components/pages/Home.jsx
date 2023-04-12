@@ -31,7 +31,7 @@ class Home extends Component {
                 <Container>
                     <Row style={{marginTop: "2%"}}>
                         <Col md={8}>
-                            <VideoFeed ip={ros_config.ROSBRIDGE_SERVER_IP}/>
+                            <VideoFeed ros={ros} />
                         </Col>
                         <Col md={4}>
                             <ROSConnect setRos={this.setRos}/>
