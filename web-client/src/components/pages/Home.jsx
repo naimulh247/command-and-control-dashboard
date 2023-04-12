@@ -4,6 +4,7 @@ import Teleop from '../ros-bridge/Teleop';
 import { Col, Container, Row } from 'react-bootstrap';
 import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
+import VideoFeed from '../ros-bridge/VideoFeed';
 
 class Home extends Component {
     constructor(props) {
@@ -36,6 +37,7 @@ class Home extends Component {
                         </Col>
                         <Col>
                             <Map ros={ros}/>
+                            <VideoFeed ros={ros} />
                         </Col>
                     </Row>
                     <Row>
