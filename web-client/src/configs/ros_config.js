@@ -1,10 +1,14 @@
-const ros_config = {
+let ros_config = {
     ROSBRIDGE_SERVER_IP: "127.0.0.1",
     ROSBRIDGE_SERVER_PORT: "9090",
     RECONNECTION_TIMEOUT: 3000,
     ROSBRIDGE_CMD_VEL: "/cmd_vel",
     ROSBRIDGE_ODOM: "/odom",
     ROSBRIDGE_ROSTOPICS_LIST: "/rostopic_list",
+    ROSBRIDGE_IMAGE_WIDTH: "",
+    ROSBRIDGE_IMAGE_HEIGHT: "",
+    ROSBRIDGE_BATTERY_TOPIC: "",
+    ROSBRIDGE_IMAGE_QUALITY: "",
 }
 
 export default ros_config

@@ -14,6 +14,7 @@ class Header extends Component {
                         <Nav.Link href="/about">About</Nav.Link>
                         <Nav.Link href="/help">Help</Nav.Link>
                         <Nav.Link href="/settings">Settings</Nav.Link>
+                        <Nav.Link href="https://github.com/campusrover/command-control">GitHub</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
