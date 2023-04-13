@@ -59,7 +59,7 @@ class Settings extends Component {
         </Section>
       
         <Section style={{marginTop: "2%"}}>
-          <Label>Image Width</Label>
+          <Label>Image Width x Height</Label>
           <InputContainer>
             <input name="imageWidth" value={imageWidth || ros_config.IMAGE_WIDTH || ""} onChange={this.handleInputChange} placeholder="Width" style={{marginRight: "0.5%"}}/>
             <span>:</span>
