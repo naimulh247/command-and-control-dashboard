@@ -29,6 +29,8 @@ class Home extends Component {
                     <Row>
                         <Col>
                             <ROSConnect setRos={this.setRos}/>
+                            <VideoFeed ros={ros} />
+
                         </Col>
                     </Row>
                     <Row>
@@ -37,7 +39,7 @@ class Home extends Component {
                         </Col>
                         <Col>
                             <Map ros={ros}/>
-                            <VideoFeed ros={ros} />
+                            {/* <VideoFeed ros={ros} /> */}
                         </Col>
                     </Row>
                     <Row>
