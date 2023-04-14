@@ -5,6 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
+import Map2 from '../ros-bridge/Map2';
 
 class Home extends Component {
     constructor(props) {
@@ -36,15 +37,19 @@ class Home extends Component {
                     <Row>
                         <Col>
                             <Teleop ros={ros}/>
+                            <RobotState ros={ros}/>
+
                         </Col>
                         <Col>
-                            <Map ros={ros}/>
+                            {/* first version of Map doesnt work in class component structure */}
+                            {/* <Map/> */}
                             {/* <VideoFeed ros={ros} /> */}
+                            <Map2/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <RobotState ros={ros}/>
+                            {/* <RobotState ros={ros}/> */}
                         </Col>
                     </Row>
                 </Container>
