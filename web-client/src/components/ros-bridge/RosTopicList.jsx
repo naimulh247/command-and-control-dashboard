@@ -15,19 +15,19 @@ class RosTopicList extends React.Component {
         const { ros } = this.props;
         // if ros is not intialized return
         if (!ros) {
-        console.warn('ROS/ RosBridge not intialized');
-        return;
+            console.warn('ROS/ RosBridge not intialized');
+            return;
         }
 
         const topicList = new window.ROSLIB.Topic({
-        ros: ros,
-        name: `${ros_config.ROSBRIDGE_ROSTOPICS_LIST}`,
-        messageType: 'std_msgs/String',
+            ros: ros,
+            name: `${ros_config.ROSBRIDGE_ROSTOPICS_LIST}`,
+            messageType: 'std_msgs/String',
         });
 
         topicList.subscribe((message) => {
-        const topics = message.data.split(',');
-        this.setState({ topics });
+            const topics = message.data.split(',');
+            this.setState({ topics });
         });
     }
 
