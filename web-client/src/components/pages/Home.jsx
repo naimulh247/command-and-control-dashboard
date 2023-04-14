@@ -31,14 +31,12 @@ class Home extends Component {
                         <Col>
                             <ROSConnect setRos={this.setRos}/>
                             <VideoFeed ros={ros} />
-
                         </Col>
                     </Row>
                     <Row>
                         <Col>
                             <Teleop ros={ros}/>
                             <RobotState ros={ros}/>
-
                         </Col>
                         <Col>
                             {/* first version of Map doesnt work in class component structure */}
