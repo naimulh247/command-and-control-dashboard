@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 class VideoFeed extends Component {
 
     constructor(props) {
@@ -10,6 +11,10 @@ class VideoFeed extends Component {
         this.getVideoFeed()
     }
 
+    componentDidUpdate( ) {
+        this.getVideoFeed()
+    }
+
     getVideoFeed () {
         const { ros } = this.props;
         const canvas = this.canvasRef.current;
@@ -17,7 +22,7 @@ class VideoFeed extends Component {
             console.warn("ROS/ RosBridge not intialized: VideoFeed");
             return;
         }
-        // console.log(ros);
+        console.log(ros);
         
         // create a new video_subscriber with the topics
         const video_subscriber = new window.ROSLIB.Topic({
@@ -42,7 +47,9 @@ class VideoFeed extends Component {
     render() { 
         return (
             // this needs to be dynamic
-            <canvas ref={this.canvasRef} width="640" height="480"></canvas>
+            <Container className='d-flex justify-content-center align-items-center'>
+                <canvas className='center' ref={this.canvasRef} width="640" height="200"></canvas>
+            </Container>
         );
     }
 }

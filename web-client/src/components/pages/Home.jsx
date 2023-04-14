@@ -5,9 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
-import ros_config from '../../configs/ros_config';
-import ManualTeleop from '../ros-bridge/ManualTeleop';
-import RosTopicList from '../ros-bridge/RosTopicList';
+import Map2 from '../ros-bridge/Map2';
 
 class Home extends Component {
     constructor(props) {
@@ -29,24 +27,29 @@ class Home extends Component {
         return (
             <main>
                 <Container>
-                    <Row style={{marginTop: "2%"}}>
-                        <Col md={8}>
-                            <VideoFeed ros={ros}/>
-                        </Col>
-                        <Col md={4}>
+                    <Row>
+                        <Col>
                             <ROSConnect setRos={this.setRos}/>
-                        </Col>
-                        <Col style={{marginLeft: "79%"}}>
-                            <Teleop ros={ros}/>
+                            <VideoFeed ros={ros} />
+
                         </Col>
                     </Row>
-                    <Row style={{marginTop: "14%"}}>
+                    <Row>
                         <Col>
+                            <Teleop ros={ros}/>
                             <RobotState ros={ros}/>
-                            <RosTopicList ros={ros}/>
+
                         </Col>
                         <Col>
-                            <ManualTeleop ros={ros}/>
+                            {/* first version of Map doesnt work in class component structure */}
+                            {/* <Map/> */}
+                            {/* <VideoFeed ros={ros} /> */}
+                            <Map2/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {/* <RobotState ros={ros}/> */}
                         </Col>
                     </Row>
                 </Container>
