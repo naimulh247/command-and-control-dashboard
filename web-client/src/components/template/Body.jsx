@@ -4,7 +4,7 @@ import {Route, BrowserRouter as Router, Routes} from 'react-router-dom'
 import Home from '../pages/Home';
 import About from '../pages/About';
 import Help from '../pages/Help';
-import Settings from '../pages/Settings2';
+import Settings from '../pages/Settings';
 
 class Body extends Component {
     state = {  } 
