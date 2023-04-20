@@ -42,14 +42,19 @@ class Settings extends Component {
     };
 
     handleSaveClick = () => {
-        // Update local storage with the new values entered by the user
+        const storedIP = localStorage.getItem('rosbridgeServerIP');
+        const storedPort = localStorage.getItem('rosbridgeServerPort');
         localStorage.setItem('rosbridgeServerIP', this.state.rosbridgeServerIP);
         localStorage.setItem('rosbridgeServerPort', this.state.rosbridgeServerPort);
         localStorage.setItem('imageWidth', this.state.imageWidth);
         localStorage.setItem('imageHeight', this.state.imageHeight);
         localStorage.setItem('imageQuality', this.state.imageQuality);
         localStorage.setItem('batteryTopic', this.state.batteryTopic);
+        if (this.state.rosbridgeServerIP !== storedIP || this.state.rosbridgeServerPort !== storedPort) {
+            window.location.reload();
+        }
     };
+      
     
     render() {
         const { ros, rosbridgeServerIP, rosbridgeServerPort, imageWidth, imageHeight, imageQuality, showBattery, batteryTopic } = this.state;
