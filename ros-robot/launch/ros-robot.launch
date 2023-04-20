@@ -1,20 +1,20 @@
 <launch>
-    
-    <node pkg="ros-robot" type="Robot.py" name="Robot" output="screen"/>
-   
-    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
-      <arg name="port" value="9090"/>
-    </include>
+  <!-- All nodes within the launch file. -->
+  <node pkg="ros-robot" type="Robot.py" name="Robot" output="screen"/>
+  <node pkg="ros-robot" type="gps.py" name="GPS"/>
 
-    <!-- Use "roslaunch prrexamples linemission.launch model:=waffle" to test since it has camera sensor running-->
-    
-    <!-- Start the stage 1 simulator for demo -->
-    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_stage_1.launch" />
-      <!-- Start the driver node -->
-      <node name="turtlebot3_driver" pkg="turtlebot3_bringup" type="turtlebot3_robot">
-        <!-- Set the model type to waffle for camera -->
-        <param name="model" type="string" value="waffle" />
-      </node>
+  <!-- *documentation* -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
+    <arg name="port" value="9090"/>
+  </include>
 
+  <!-- Use "roslaunch prrexamples linemission.launch model:=waffle" to test since it has camera sensor running-->
 
+  <!-- Start the stage 1 simulator for demo -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_stage_1.launch"/>
+  <!-- Start the driver node -->
+  <node name="turtlebot3_driver" pkg="turtlebot3_bringup" type="turtlebot3_robot">
+    <!-- Set the model type to waffle for camera -->
+    <param name="model" type="string" value="waffle" />
+  </node>
 </launch>
