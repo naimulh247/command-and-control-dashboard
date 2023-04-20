@@ -5,10 +5,10 @@ let ros_config = {
     ROSBRIDGE_CMD_VEL: "/cmd_vel",
     ROSBRIDGE_ODOM: "/odom",
     ROSBRIDGE_ROSTOPICS_LIST: "/rostopic_list",
-    ROSBRIDGE_IMAGE_WIDTH: "",
-    ROSBRIDGE_IMAGE_HEIGHT: "",
-    ROSBRIDGE_BATTERY_TOPIC: "",
-    ROSBRIDGE_IMAGE_QUALITY: "",
+    ROSBRIDGE_IMAGE_WIDTH: "640",
+    ROSBRIDGE_IMAGE_HEIGHT: "720",
+    ROSBRIDGE_BATTERY_TOPIC: "/battery",
+    ROSBRIDGE_IMAGE_QUALITY: "50",
 }
 
 export default ros_config
