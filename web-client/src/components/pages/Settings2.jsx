@@ -37,6 +37,10 @@ class Settings extends Component {
         this.setState({ showBattery: checked });
     };
 
+    handleFormSubmit = (event) => {
+        event.preventDefault();
+    };
+
     handleSaveClick = () => {
         // Update local storage with the new values entered by the user
         localStorage.setItem('rosbridgeServerIP', this.state.rosbridgeServerIP);
@@ -56,7 +60,7 @@ class Settings extends Component {
                         <ROSConnect setRos={this.setRos}/>
                     </Col>
                 </Row>
-                <Form>
+                <Form onSubmit={this.handleFormSubmit}>
                     <FormGroup>
                         <Row>
                             <Col>
@@ -109,10 +113,10 @@ class Settings extends Component {
                                     Show Current Configurations
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_IP] : {rosbridgeServerIP.toString()}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_IP ] : {rosbridgeServerIP.toString()}</Dropdown.Item>
                                     <Dropdown.Item>[ ROSBRIDGE_SERVER_PORT ]: {rosbridgeServerPort.toString()}</Dropdown.Item>
                                     <Dropdown.Item>[ ROSBRIDGE_IMAGE_WIDTH ]: {imageWidth.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_HEIGHT] : {imageHeight.toString()}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_HEIGHT ] : {imageHeight.toString()}</Dropdown.Item>
                                     <Dropdown.Item>[ ROSBRIDGE_IMAGE_QUALITY ]: {imageQuality.toString()}</Dropdown.Item>
                                     <Dropdown.Item>[ ROSBRIDGE_SHOW_BATTERY ]: {showBattery.toString()}</Dropdown.Item>
                                     <Dropdown.Item>[ ROSBRIDGE_BATTERY_TOPIC ]: {batteryTopic.toString()}</Dropdown.Item>

@@ -50,11 +50,13 @@ class RosTopicList extends React.Component {
                     {showMenu ? 'Hide Available Topics' : 'Show Available Topics'}
                 </button>
                 {showMenu && (
-                <ul>
-                    {topics.map((topic, i) => (
-                    <li key={i}>{topic}</li>
-                    ))}
-                </ul>
+                    <ul>
+                        {topics.length === 0 ? <li>No current ROS topics being published!</li> :
+                            topics.map((topic, i) => (
+                                <li key={i}>{topic}</li>
+                            ))
+                        }
+                    </ul>
                 )}
             </div>
         );
