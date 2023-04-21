@@ -18,6 +18,11 @@ class Settings extends Component {
             imageQuality: localStorage.getItem('imageQuality') || ros_config.ROSBRIDGE_IMAGE_QUALITY,
             showBattery: false,
             batteryTopic: localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC,
+            invalidIP: false,
+            invalidPort: false,
+            invalidWidth: false,
+            invalidHeight: false,
+            invalidQuality: false
         }
 
         this.setRos = this.setRos.bind(this);
@@ -29,8 +34,32 @@ class Settings extends Component {
 
     handleInputChange = (event) => {
         const { name, value } = event.target;
-        this.setState({ [name]: value });
+      
+        // Only allow numbers and periods for rosbridgeServerIP
+        if (name === "rosbridgeServerIP" && !/^[\d.]+$/.test(value)) {
+            this.setState({ invalidIP: true });
+            return;
+        }
+
+        // Only allow numbers for rosbridgeServerPort, imageWidth, imageHeight, and imageQuality
+        if (name === "rosbridgeServerPort" && !/^\d+$/.test(value)) {
+            this.setState({ invalidPort: true });
+        }
+        else if (name === "imageWidth" && !/^\d+$/.test(value)) {
+            this.setState({ invalidWidth: true });
+        }
+        else if (name === "imageHeight" && !/^\d+$/.test(value)) {
+            this.setState({ invalidHeight: true });
+        }
+        else if (name === "imageQuality" && !/^\d+$/.test(value)) {
+            this.setState({ invalidQuality: true });
+        }
+        else {
+            this.setState({ [name]: value, invalidIP: false, invalidPort: false, invalidWidth: false, invalidHeight: false, invalidQuality: false });
+        }
+      
     };
+      
 
     handleCheckboxChange = (event) => {
         const { checked } = event.target;
@@ -71,10 +100,20 @@ class Settings extends Component {
                             <Col>
                                 <Form.Label>Rosbridge Server IP Address</Form.Label>
                                 <Form.Control name="rosbridgeServerIP" onChange={this.handleInputChange} placeholder="xxx.x.x.x" style={{width: "50%"}}/>
+                                {this.state.invalidIP && (
+                                    <span style={{ color: "red" }}>
+                                    Invalid rosbridge server IP, please re-enter a number value!
+                                    </span>
+                                )}
                             </Col>
                             <Col>
                                 <Form.Label>Port</Form.Label>
                                 <Form.Control name="rosbridgeServerPort" onChange={this.handleInputChange} placeholder="Port" style={{width: "20%"}}/>
+                                {this.state.invalidPort && (
+                                    <span style={{ color: "red" }}>
+                                    Invalid rosbridge server port, please re-enter a number value!
+                                    </span>
+                                )}
                             </Col>
                         </Row>
                     </FormGroup>
@@ -84,10 +123,20 @@ class Settings extends Component {
                             <Col>
                                 <Form.Label>Image Width</Form.Label>
                                 <Form.Control name="imageWidth" onChange={this.handleInputChange} placeholder="Width" style={{width: "20%"}}/>
+                                {this.state.invalidWidth && (
+                                    <span style={{ color: "red" }}>
+                                    Invalid image width input, please re-enter a number value!
+                                    </span>
+                                )}
                             </Col>
                             <Col>
                                 <Form.Label>Image Height</Form.Label>
                                 <Form.Control name="imageHeight" onChange={this.handleInputChange} placeholder="Height" style={{width: "20%"}}/>
+                                {this.state.invalidHeight && (
+                                    <span style={{ color: "red" }}>
+                                    Invalid image height input, please re-enter a number value!
+                                    </span>
+                                )}
                             </Col>
                         </Row>
                     </FormGroup>
@@ -95,6 +144,11 @@ class Settings extends Component {
                     <FormGroup style={{ marginTop: "2%" }}>
                         <Form.Label>Image Quality</Form.Label>
                         <Form.Control name="imageQuality" onChange={this.handleInputChange} placeholder="0-100" style={{width: "20%"}}/>
+                        {this.state.invalidQuality && (
+                            <span style={{ color: "red" }}>
+                            Invalid image quality input, please re-enter a number value!
+                            </span>
+                        )}
                     </FormGroup>
 
                     <div style={{marginTop: "2%"}}>
@@ -118,13 +172,13 @@ class Settings extends Component {
                                     Show Current Configurations
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_IP ] : {rosbridgeServerIP.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_PORT ]: {rosbridgeServerPort.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_WIDTH ]: {imageWidth.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_HEIGHT ] : {imageHeight.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_QUALITY ]: {imageQuality.toString()}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_IP ] : {localStorage.getItem('rosbridgeServerIP').toString() || ros_config.ROSBRIDGE_SERVER_IP}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_PORT ]: {localStorage.getItem('rosbridgeServerPort').toString() || ros_config.ROSBRIDGE_SERVER_Port}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_WIDTH ]: {localStorage.getItem('imageWidth').toString() || ros_config.ROSBRIDGE_IMAGE_WIDTH}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_HEIGHT ] : {localStorage.getItem('imageHeight').toString() || ros_config.ROSBRIDGE_IMAGE_HEIGHT}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_QUALITY ]: {localStorage.getItem('imageQuality').toString() || ros_config.ROSBRIDGE_IMAGE_QUALITY}</Dropdown.Item>
                                     <Dropdown.Item>[ ROSBRIDGE_SHOW_BATTERY ]: {showBattery.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_BATTERY_TOPIC ]: {batteryTopic.toString()}</Dropdown.Item>
+                                    <Dropdown.Item>[ ROSBRIDGE_BATTERY_TOPIC ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
