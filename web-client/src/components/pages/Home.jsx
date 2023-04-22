@@ -6,12 +6,15 @@ import RobotState from '../ros-bridge/RobotState';
 import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
 import Map2 from '../ros-bridge/Map2';
+import ManualTeleop from '../ros-bridge/ManualTeleop';
+import ros_config from '../../configs/ros_config';
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ros: null
+            ros: null,
+            manualTeleop: (localStorage.getItem('manualTeleop') !== null && localStorage.getItem('manualTeleop') === 'true') ? true : ros_config.ROSBRIDGE_MANUAL_TELEOP,
         }
         this.setRos = this.setRos.bind(this);
     }
@@ -21,9 +24,8 @@ class Home extends Component {
         // console.log(ros);
     }
 
-    render() { 
-        // console.log(this.state.ros)
-        const {ros} = this.state
+    render() {
+        const {ros, manualTeleop} = this.state
         return (
             <main>
                 <Container>
@@ -35,7 +37,7 @@ class Home extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Teleop ros={ros}/>
+                            {manualTeleop ? <ManualTeleop ros={ros}/> : <Teleop ros={ros}/>}
                             <RobotState ros={ros}/>
                         </Col>
                         <Col>
@@ -54,6 +56,7 @@ class Home extends Component {
             </main>
         );
     }
+    
 }
  
 export default Home;

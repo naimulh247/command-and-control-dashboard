@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, FormGroup, Button, Dropdown, DropdownButton} from 'react-bootstrap';
+import { Container, Row, Col, Form, FormGroup, Button, Dropdown } from 'react-bootstrap';
 import ros_config from '../../configs/ros_config';
 import ROSConnect from '../ros-bridge/ROSConnect';
-import ManualTeleop from '../ros-bridge/ManualTeleop';
 import RosTopicList from '../ros-bridge/RosTopicList';
 
 class Settings extends Component {
@@ -13,23 +12,40 @@ class Settings extends Component {
             ros: null,
             rosbridgeServerIP: localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP,
             rosbridgeServerPort: localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT,
-            imageWidth: localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH,
+            imageWidth: localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH ,
             imageHeight: localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT,
             imageQuality: localStorage.getItem('imageQuality') || ros_config.ROSBRIDGE_IMAGE_QUALITY,
-            showBattery: false,
+            batteryStatus: (localStorage.getItem('batteryStatus') !== null && localStorage.getItem('batteryStatus') === 'true') ? true : ros_config.ROSBRIDGE_BATTERY_STATUS,
             batteryTopic: localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC,
+            manualTeleop: (localStorage.getItem('manualTeleop') !== null && localStorage.getItem('manualTeleop') === 'true') ? true : ros_config.ROSBRIDGE_MANUAL_TELEOP,
             invalidIP: false,
             invalidPort: false,
             invalidWidth: false,
             invalidHeight: false,
-            invalidQuality: false
+            showConfig: false
         }
 
         this.setRos = this.setRos.bind(this);
+        this.updateManualTeleopState = this.updateManualTeleopState.bind(this);
+        this.toggleConfig = this.toggleConfig.bind(this);
     }
 
     setRos(ros) {
         this.setState({ ros });
+    }
+
+    updateManualTeleopState(newState) {
+        localStorage.setItem('manualTeleop', newState);
+        return newState;
+    }
+
+    updateShowBattery(newState) {
+        localStorage.setItem('batteryStatus', newState);
+        return newState;
+    }
+
+    toggleConfig(isOpen) {
+        this.setState({ showConfig: isOpen });
     }
 
     handleInputChange = (event) => {
@@ -59,12 +75,6 @@ class Settings extends Component {
         }
       
     };
-      
-
-    handleCheckboxChange = (event) => {
-        const { checked } = event.target;
-        this.setState({ showBattery: checked });
-    };
 
     handleFormSubmit = (event) => {
         event.preventDefault();
@@ -84,16 +94,20 @@ class Settings extends Component {
         }
     };
       
-    
     render() {
-        const { ros, rosbridgeServerIP, rosbridgeServerPort, imageWidth, imageHeight, imageQuality, showBattery, batteryTopic } = this.state;
+        const { ros, rosbridgeServerIP, rosbridgeServerPort, imageWidth, imageHeight, imageQuality, batteryStatus, batteryTopic, manualTeleop, showConfig } = this.state;
         return (
             <Container style={{ margin: "2%" }}>
+                <h1 id="-project-command-control-"><strong>Settings</strong></h1>
+
+                <div className="divider"></div>
+
                 <Row>
                     <Col>
                         <ROSConnect setRos={this.setRos}/>
                     </Col>
                 </Row>
+
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormGroup>
                         <Row>
@@ -149,40 +163,71 @@ class Settings extends Component {
                             Invalid image quality input, please re-enter a number value!
                             </span>
                         )}
-                    </FormGroup>
-
-                    <div style={{marginTop: "2%"}}>
-                        <RosTopicList ros={ros}/>
-                    </div>
-    
-                    <FormGroup style={{ marginTop: "1%" }}>
-                        <Form.Check name="showBattery" checked={showBattery} onChange={this.handleCheckboxChange} label="Battery" />
-                        {showBattery && (
-                            <Form.Control name="batteryTopic" onChange={this.handleInputChange} placeholder="/battery" style={{width: "20%"}}/>
-                        )}
-                    </FormGroup>
-    
-                    <div style={{ display: 'flex', justifyContent: 'row', marginTop: "2%"}}>
-                        <Button onClick={this.handleSaveClick} variant="primary">
+                         <FormGroup style={{ marginTop: "2%" }}>
+                            <Form.Check 
+                                name="showBattery" 
+                                type="checkbox"
+                                checked={batteryStatus} 
+                                onChange={(event) =>
+                                    this.setState({
+                                        batteryStatus: Boolean(this.updateShowBattery(event.target.checked)),
+                                    })
+                                }
+                                label="Show Battery Status" />
+                            {batteryStatus && (
+                                <Form.Control name="batteryTopic" onChange={this.handleInputChange} placeholder="/battery" style={{width: "20%"}}/>
+                            )}
+                        </FormGroup>
+                        <Button onClick={this.handleSaveClick} variant="primary" style={{marginTop: "2%"}}>
                             Save
                         </Button>
-                        <div style={{marginLeft: "2%"}}>
-                            <Dropdown>
-                                <Dropdown.Toggle variant="secondary">
-                                    Show Current Configurations
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_IP ] : {localStorage.getItem('rosbridgeServerIP').toString() || ros_config.ROSBRIDGE_SERVER_IP}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_SERVER_PORT ]: {localStorage.getItem('rosbridgeServerPort').toString() || ros_config.ROSBRIDGE_SERVER_Port}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_WIDTH ]: {localStorage.getItem('imageWidth').toString() || ros_config.ROSBRIDGE_IMAGE_WIDTH}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_HEIGHT ] : {localStorage.getItem('imageHeight').toString() || ros_config.ROSBRIDGE_IMAGE_HEIGHT}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_IMAGE_QUALITY ]: {localStorage.getItem('imageQuality').toString() || ros_config.ROSBRIDGE_IMAGE_QUALITY}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_SHOW_BATTERY ]: {showBattery.toString()}</Dropdown.Item>
-                                    <Dropdown.Item>[ ROSBRIDGE_BATTERY_TOPIC ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
+                    </FormGroup>
+
+                    <div className="divider"></div>
+    
+                    <div style={{ display: 'flex', justifyContent: 'row', marginTop: "2%"}}>
+                        <RosTopicList ros={ros}/>
+                        <Dropdown onToggle={this.toggleConfig} show={this.state.showConfig} style={{marginLeft: "1.5%"}}>
+                            <Dropdown.Toggle variant="info">
+                            {this.state.showConfig
+                                ? 'Hide Current Configuration'
+                                : 'Show Current Configuration'}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP').toString() || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort').toString() || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Width ]: {localStorage.getItem('imageWidth').toString() || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Height ] : {localStorage.getItem('imageHeight').toString() || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Quality ]: {localStorage.getItem('imageQuality').toString() || ros_config.ROSBRIDGE_IMAGE_QUALITY} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Show Battery ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
+                                {localStorage.getItem('batteryStatus') !== null ?
+                                    (localStorage.getItem('batteryStatus') === 'true' ?
+                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
+                                        : null)
+                                    : (ros_config.ROSBRIDGE_BATTERY_STATUS ?
+                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
+                                        : null)
+                                }
+                                <Dropdown.Item> [ Rosbridge Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </div>
+
+                    <FormGroup style={{marginTop: "2%"}}>
+                        <Form.Check
+                            name="manualTeleop"
+                            type="checkbox"
+                            label="Manual Input Teleoperation"
+                            checked={manualTeleop}
+                            onChange={(event) =>
+                                this.setState({
+                                    manualTeleop: Boolean(this.updateManualTeleopState(event.target.checked)),
+                                })
+                            }
+                        />
+                    </FormGroup>
+
+                    
                 </Form>
             </Container>
         );

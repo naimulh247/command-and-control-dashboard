@@ -9,6 +9,8 @@ let ros_config = {
     ROSBRIDGE_IMAGE_HEIGHT: "720",
     ROSBRIDGE_BATTERY_TOPIC: "/battery",
     ROSBRIDGE_IMAGE_QUALITY: "50",
+    ROSBRIDGE_MANUAL_TELEOP: false,
+    ROSBRIDGE_BATTERY_STATUS: false,
 }
 
 export default ros_config

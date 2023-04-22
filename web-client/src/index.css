@@ -23,9 +23,19 @@ main {
 }
 
 .bgStyle {
-  background-color: rgb(230, 255, 255);
   width: fit-content;
   margin: 1%;
+}
+
+.scrollable-menu {
+  max-height: 242px;
+  overflow-y: auto;
+}
+
+.divider {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .connected {
