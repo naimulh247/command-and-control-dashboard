@@ -50,7 +50,7 @@ class ROSConnect extends Component {
     render() { 
         return (
             <div>
-                <Alert className='text-center m-3' variant={this.state.connected ? "success" : "danger"}>
+                <Alert className='text-center' variant={this.state.connected ? "success" : "danger"}>
                     {this.state.connected ? "Robot Connected" : "Robot Disconnected"}
                 </Alert>
             </div>

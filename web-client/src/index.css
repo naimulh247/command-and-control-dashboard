@@ -7,6 +7,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.navbar-style {
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-left: 3%;
+  background: rgb(28,78,128);
+}
+
+.navbar-text-style {
+  color: #fff;
+}
+
+.footer-style {
+  background: rgb(28,78,128);
+  margin-bottom: 0;
+}
+
+.footer-p-style {
+  color: #fff;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -39,7 +61,7 @@ main {
 }
 
 .connected {
-  width:fit-content;
+  margin-top: 1.5%;
 }
 
 .box {
