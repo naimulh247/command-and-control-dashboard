@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import ros_config from '../../configs/ros_config';
+
 class VideoFeed extends Component {
 
     constructor(props) {
@@ -7,17 +9,43 @@ class VideoFeed extends Component {
         this.canvasRef = React.createRef();
         this.getVideoFeed = this.getVideoFeed.bind(this)
     }
+
     componentDidMount() {
         this.getVideoFeed()
+        this.imageConfigInterval = setInterval(() => {
+            this.pubImageConfigs();
+        }, ros_config.CHECK_IMAGE_CONFIG);
     }
 
     componentDidUpdate( ) {
         this.getVideoFeed()
     }
 
-    getVideoFeed () {
+    componentWillUnmount() {
+        clearInterval(this.imageConfigInterval); // clear the interval when component unmounts
+    }
+
+    pubImageConfigs() {
+        const { ros } = this.props;
+
+        // publish imageWidth and imageHeight as a rostopic
+        const imageConfig_publisher = new window.ROSLIB.Topic({
+            ros: ros,
+            name: `${ros_config.ROSBRIDGE_IMAGE_CONFIGS}`,
+            messageType: 'std_msgs/String'
+        });
+ 
+        const imageWidth = localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH;
+        const imageHeight = localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT;
+        const message = new window.ROSLIB.Message({data: `${imageWidth},${imageHeight}`});
+
+        imageConfig_publisher.publish(message);
+    }
+
+    getVideoFeed() {
         const { ros } = this.props;
         const canvas = this.canvasRef.current;
+
         if (!ros) {
             console.warn("ROS/ RosBridge not intialized: VideoFeed");
             return;
@@ -44,6 +72,7 @@ class VideoFeed extends Component {
         });
 
     }
+
     render() { 
         return (
             // this needs to be dynamic
