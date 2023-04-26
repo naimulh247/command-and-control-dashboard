@@ -1,86 +1,9 @@
-import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
-import ros_config from '../../configs/ros_config';
-
 class VideoFeed extends Component {
-
-    constructor(props) {
-        super(props);
-        this.canvasRef = React.createRef();
-        this.getVideoFeed = this.getVideoFeed.bind(this)
+    render() {
+      return (
+        <iframe className='video-feed' title='robot-video-feed' src={`http://${this.props.ip}:${ros_config.VIDEO_WEB_SERVER_PORT}`}></iframe>
+      );
     }
-
-    componentDidMount() {
-        this.getVideoFeed()
-        this.imageConfigInterval = setInterval(() => {
-            this.pubImageConfigs();
-        }, ros_config.CHECK_IMAGE_CONFIG);
-    }
-
-    componentDidUpdate( ) {
-        this.getVideoFeed()
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.imageConfigInterval); // clear the interval when component unmounts
-    }
-
-    pubImageConfigs() {
-        const { ros } = this.props;
-
-        // publish imageWidth and imageHeight as a rostopic
-        const imageConfig_publisher = new window.ROSLIB.Topic({
-            ros: ros,
-            name: `${ros_config.ROSBRIDGE_IMAGE_CONFIGS}`,
-            messageType: 'std_msgs/String'
-        });
- 
-        const imageWidth = localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH;
-        const imageHeight = localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT;
-        const message = new window.ROSLIB.Message({data: `${imageWidth},${imageHeight}`});
-
-        imageConfig_publisher.publish(message);
-    }
-
-    getVideoFeed() {
-        const { ros } = this.props;
-        const canvas = this.canvasRef.current;
-
-        if (!ros) {
-            console.warn("ROS/ RosBridge not intialized: VideoFeed");
-            return;
-        }
-        console.log(ros);
-        
-        // create a new video_subscriber with the topics
-        const video_subscriber = new window.ROSLIB.Topic({
-            ros: ros,
-            name: '/camera/rgb/image_raw/compressed',
-            messageType: 'sensor_msgs/CompressedImage',
-        })
-
-        // if there is a message update the canvas with the video feed
-        video_subscriber.subscribe((message) => {
-            const data = message.data;
-            const frame = new Image();
-            frame.onload = () => {
-                // draw the image on the canvas
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-            }
-            frame.src = 'data:image/jpeg;base64,' + data;
-        });
-
-    }
-
-    render() { 
-        return (
-            // this needs to be dynamic
-            <Container className='d-flex justify-content-center align-items-center'>
-                <canvas className='center' ref={this.canvasRef} width="640" height="200"></canvas>
-            </Container>
-        );
-    }
-}
- 
+  }
+  
 export default VideoFeed;
