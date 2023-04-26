@@ -14,11 +14,11 @@ from std_msgs.msg import String
 
 class GPS:
     '''A node which listens to GPS2IP Lite through a socket and publishes a GPS topic.'''
-    def __init__(self, HOST, PORT):
+    def __init__(self):
         '''Initialize the publisher and instance variables.'''
         # Instance Variables
-        self.HOST = HOST
-        self.PORT = PORT
+        self.HOST = rospy.get_param('/HOST')
+        self.PORT = rospy.get_param('/PORT')
 
         # Publisher
         self.publisher = rospy.Publisher('/gps', String, queue_size=1)
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     rospy.init_node("gps")
 
     # Initialize a GPS instance with the HOST and PORT
-    gps_node = GPS("172.20.38.175", 11123)
+    gps_node = GPS()
 
     # Continuously publish coordinated until shut down
     while not rospy.is_shutdown():

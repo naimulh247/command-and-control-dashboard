@@ -4,7 +4,10 @@
   <node pkg="ros-robot" type="rosTopicList.py" name="rosTopicList" output="screen"/>
 
   <!-- Start GPS node to get GPS information for map on web client -->
-  <node pkg="ros-robot" type="gps.py" name="GPS"/>
+  <node pkg="ros-robot" type="gps.py" name="GPS">
+    <param name="HOST" type="string" value="172.20.38.175"/>
+    <param name="PORT" type="int" value="11123"/>
+  </node>
   
   <!-- Start rosbridge server to connect with web client -->
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
@@ -17,7 +20,7 @@
   <!-- Start the driver node -->
   <node name="turtlebot3_driver" pkg="turtlebot3_bringup" type="turtlebot3_robot">
     <!-- Set the model type to waffle for camera -->
-    <param name="model" type="string" value="waffle" />
+    <param name="model" type="string" value="waffle"/>
   </node>
 
 </launch>
