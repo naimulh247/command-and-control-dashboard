@@ -34,7 +34,7 @@ class Home extends Component {
                             <div style={{marginTop: "1.5%"}}>
                                 <ROSConnect setRos={this.setRos}/>
                             </div>
-                            <VideoFeed ros={ros} />
+                            <VideoFeed/>
                         </Col>
                     </Row>
                     <Row>

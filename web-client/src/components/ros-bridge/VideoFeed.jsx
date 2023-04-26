@@ -1,7 +1,9 @@
+import React, { Component } from 'react'
+
 class VideoFeed extends Component {
     render() {
       return (
-        <iframe className='video-feed' title='robot-video-feed' src={`http://${this.props.ip}:${ros_config.VIDEO_WEB_SERVER_PORT}`}></iframe>
+        <iframe className='video-feed' title='robot-video-feed' src={"http://localhost:8090/stream?topic=/camera/rgb/image_raw&width=320&height=240"}></iframe>
       );
     }
   }
