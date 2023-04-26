@@ -55,7 +55,7 @@ class VideoFeed extends Component {
         // create a new video_subscriber with the topics
         const video_subscriber = new window.ROSLIB.Topic({
             ros: ros,
-            name: '/camera/rgb/image_raw/compressed',
+            name: '/raspicam_node/image/compressed',
             messageType: 'sensor_msgs/CompressedImage',
         })
 
