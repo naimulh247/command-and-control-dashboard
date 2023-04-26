@@ -29,7 +29,9 @@ class ROSConnect extends Component {
             setTimeout(() => {
                 try{
                     // change the ip address to local storage
-                    ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
+                    const rosbridge_ip = localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP;
+                    const rosbridge_port = localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT;
+                    ros.connect(`ws://${rosbridge_ip}:${rosbridge_port}`)
                 }catch (error) {
                     console.log("connection error:", error);
                 }
@@ -37,20 +39,18 @@ class ROSConnect extends Component {
         })
 
         try{
-            // change the ip address to local storage
-            ros.connect(`ws://${ros_config.ROSBRIDGE_SERVER_IP}:${ros_config.ROSBRIDGE_SERVER_PORT}`)
+            const rosbridge_ip = localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP;
+            const rosbridge_port = localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT;
+            ros.connect(`ws://${rosbridge_ip}:${rosbridge_port}`)
         }catch (error) {
             console.log("connection error:", error);
         }
-
-        // console.log(ros);
-
     }
 
     render() { 
         return (
             <div>
-                <Alert className='text-center m-3 connected' variant={this.state.connected ? "success" : "danger"}>
+                <Alert className='text-center' variant={this.state.connected ? "success" : "danger"}>
                     {this.state.connected ? "Robot Connected" : "Robot Disconnected"}
                 </Alert>
             </div>

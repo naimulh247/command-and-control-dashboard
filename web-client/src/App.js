@@ -1,12 +1,12 @@
-import Footer from "./components/template/Footer";
-import Header from "./components/template/Header";
-import Body from "./components/template/Body";
+import Footer from "./components/main/Footer";
+import Header from "./components/main/Header";
+import Body from "./components/main/Body";
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <Body/>
+        <Body/>
       <Footer/>
     </div>
   );
