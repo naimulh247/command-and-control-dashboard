@@ -185,17 +185,17 @@ class Settings extends Component {
                                 : 'Show Current Configuration'}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP').toString() || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort').toString() || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Image Width ]: {localStorage.getItem('imageWidth').toString() || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Image Height ] : {localStorage.getItem('imageHeight').toString() || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Width ]: {localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Height ] : {localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
                                 <Dropdown.Item> [ Rosbridge Show Battery ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
                                 {localStorage.getItem('batteryStatus') !== null ?
                                     (localStorage.getItem('batteryStatus') === 'true' ?
-                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
+                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
                                         : null)
                                     : (ros_config.ROSBRIDGE_BATTERY_STATUS ?
-                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
+                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
                                         : null)
                                 }
                                 <Dropdown.Item> [ Rosbridge Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
