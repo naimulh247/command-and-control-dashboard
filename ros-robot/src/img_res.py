@@ -51,7 +51,7 @@ class Compressor:
 
     def callback_set(self, msg):
         '''A callback to retrieve the specified resolution from the web client.'''
-        img_set = re.split(',', msg).data
+        img_set = re.split(',', msg.data)
 
         self.img_res['height'] = img_set[0]
         self.img_res['width'] = img_set[1]
