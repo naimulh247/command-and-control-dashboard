@@ -6,7 +6,7 @@ function Map2({ros}) {
     const [viewport, setviewport] = useState({
         latitude: 42.366251,
         longitude: -71.258724,
-        zoom: 13
+        zoom: 19
     });
 
     const [latitude, setLatitude] = useState(0);
