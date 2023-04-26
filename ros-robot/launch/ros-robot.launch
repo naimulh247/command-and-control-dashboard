@@ -3,6 +3,9 @@
   <!-- Publishes /rostopic_list which is output from "rostopic list" command -->
   <node pkg="ros-robot" type="rosTopicList.py" name="rosTopicList" output="screen"/>
 
+  <!-- Start Image node to get camera on web client -->
+  <node pkg="ros-robot" type="img_res.py" name="img_res"/>
+
   <!-- Start GPS node to get GPS information for map on web client -->
   <node pkg="ros-robot" type="gps.py" name="GPS">
     <param name="HOST" type="string" value="172.20.38.175"/>
@@ -13,14 +16,5 @@
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" > 
     <arg name="port" value="9090"/>
   </include>
-
-  <!-- Start the stage 1 simulator for demo -->
-  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_stage_1.launch"/>
-
-  <!-- Start the driver node -->
-  <node name="turtlebot3_driver" pkg="turtlebot3_bringup" type="turtlebot3_robot">
-    <!-- Set the model type to waffle for camera -->
-    <param name="model" type="string" value="waffle"/>
-  </node>
 
 </launch>
