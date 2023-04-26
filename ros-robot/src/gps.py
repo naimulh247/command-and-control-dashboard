@@ -17,8 +17,8 @@ class GPS:
     def __init__(self):
         '''Initialize the publisher and instance variables.'''
         # Instance Variables
-        self.HOST = rospy.get_param('/HOST')
-        self.PORT = rospy.get_param('/PORT')
+        self.HOST = rospy.get_param('~HOST')
+        self.PORT = rospy.get_param('~PORT')
 
         # Publisher
         self.publisher = rospy.Publisher('/gps', String, queue_size=1)
