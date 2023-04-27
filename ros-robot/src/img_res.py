@@ -55,8 +55,8 @@ class Compressor:
         '''A callback to retrieve the specified resolution from the web client.'''
         img_set = re.split(',', msg.data)
 
-        self.img_res['height'] = img_set[0]
-        self.img_res['width'] = img_set[1]
+        self.img_res['height'] = int(img_set[0])
+        self.img_res['width'] = int(img_set[1])
 
 
 if __name__ == "__main__":
