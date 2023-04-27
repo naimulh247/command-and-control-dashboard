@@ -1,0 +1,12 @@
+<launch>
+
+  <!-- All nodes within the launch file. -->
+  <node pkg="ros-robot" type="Robot.py" name="Robot" output="screen"/>
+  <node pkg="ros-robot" type="gps.py" name="GPS"/>
+
+  <!-- *documentation* -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
+    <arg name="port" value="9090"/>
+  </include>
+
+</launch>
