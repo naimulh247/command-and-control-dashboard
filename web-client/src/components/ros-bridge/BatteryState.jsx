@@ -10,23 +10,28 @@ class BatteryIndicator extends Component {
             batteryColor: '#00ff00',
         };
 
-        this.updateBatteryState.bind(this);
-        this.interval = null;
+        this.updateBatteryState = this.updateBatteryState.bind(this);
     }
 
     componentDidMount() {
-        this.interval = setInterval(this.updateBatteryState, 10000); // Subscribe every 10 seconds
+        this.updateBatteryState();
     }
 
-    componentWillUnmount() {
-        clearInterval(this.interval); // Clear the interval when the component unmounts
+    componentDidUpdate(prevProps) {
+        if (this.props.ros && prevProps.ros !== this.props.ros) {
+            this.updateBatteryState()
+        }
     }
 
     updateBatteryState = () => {
         const { ros } = this.props;
+
         if (!ros) {
-            console.warn('ROS/ RosBridge not initialized');
+            console.warn('ROS/ RosBridge not initialized: Battery State');
             return;
+        }
+        else{
+            console.warn('Battery State initialized')
         }
 
         // Subscribe to the /battery_state topic
@@ -34,8 +39,9 @@ class BatteryIndicator extends Component {
             ros: ros,
             name: `${localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC}`,
             messageType: 'sensor_msgs/BatteryState',
+            throttle_rate: 5000
         });
-
+        
         batteryStateListener.subscribe((message) => {
             // Extract the battery percentage from the message
             const batteryPercentage = Math.min(Math.round(message.percentage * 100), 100);
@@ -53,7 +59,7 @@ class BatteryIndicator extends Component {
             }
 
             this.setState({ batteryColor });
-        });
+        }); 
     };
 
     render() {
