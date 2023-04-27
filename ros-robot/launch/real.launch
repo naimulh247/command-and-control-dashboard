@@ -1,8 +1,13 @@
 <launch>
 
   <!-- All nodes within the launch file. -->
-  <node pkg="ros-robot" type="Robot.py" name="Robot" output="screen"/>
+  <node pkg="ros-robot" type="rosTopicList.py" name="RosTopic" output="screen"/>
+  
+  <!-- Start GPS node to get GPS information for map on web client -->
   <node pkg="ros-robot" type="gps.py" name="GPS"/>
+
+  <!-- Start Image node to get camera on web client -->
+  <node pkg="ros-robot" type="img_res.py" name="img"/>
 
   <!-- *documentation* -->
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
