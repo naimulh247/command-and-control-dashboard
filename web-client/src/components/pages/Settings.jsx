@@ -131,7 +131,7 @@ class Settings extends Component {
                     <FormGroup style={{ marginTop: "2%" }}>
                         <Row>
                             <Col>
-                                <Form.Label>Image Width</Form.Label>
+                                <Form.Label>Image Resolution Width</Form.Label>
                                 <Form.Control name="imageWidth" onChange={this.handleInputChange} placeholder="Width" style={{width: "20%"}}/>
                                 {invalidWidth && (
                                     <span style={{ color: "red" }}>
@@ -140,7 +140,7 @@ class Settings extends Component {
                                 )}
                             </Col>
                             <Col>
-                                <Form.Label>Image Height</Form.Label>
+                                <Form.Label>Image Resolution Height</Form.Label>
                                 <Form.Control name="imageHeight" onChange={this.handleInputChange} placeholder="Height" style={{width: "20%"}}/>
                                 {invalidHeight && (
                                     <span style={{ color: "red" }}>
@@ -170,8 +170,8 @@ class Settings extends Component {
                             <Dropdown.Menu>
                                 <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
                                 <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Image Width ]: {localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Image Height ] : {localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Resolution Width ]: {localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Resolution Height ] : {localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
                                 <Dropdown.Item> [ Rosbridge Show Battery Status ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
                                 <Dropdown.Item> [ Rosbridge Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
                             </Dropdown.Menu>
