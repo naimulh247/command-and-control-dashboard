@@ -9,10 +9,10 @@ let ros_config = {
     ROSBRIDGE_ROSTOPICS_LIST: "/rostopic_list",
     ROSBRIDGE_IMAGE_WIDTH: "640",
     ROSBRIDGE_IMAGE_HEIGHT: "720",
-    ROSBRIDGE_BATTERY_TOPIC: "/battery",
+    ROSBRIDGE_BATTERY_TOPIC: "/battery_state",
     ROSBRIDGE_IMAGE_QUALITY: "50",
     ROSBRIDGE_MANUAL_TELEOP: false,
-    ROSBRIDGE_BATTERY_STATUS: false,
+    ROSBRIDGE_BATTERY_STATUS: true,
 }
 
 export default ros_config

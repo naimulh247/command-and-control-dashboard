@@ -14,9 +14,8 @@ class Settings extends Component {
             rosbridgeServerPort: localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT,
             imageWidth: localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH ,
             imageHeight: localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT,
-            batteryStatus: (localStorage.getItem('batteryStatus') !== null && localStorage.getItem('batteryStatus') === 'true') ? true : ros_config.ROSBRIDGE_BATTERY_STATUS,
-            batteryTopic: localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC,
-            manualTeleop: (localStorage.getItem('manualTeleop') !== null && localStorage.getItem('manualTeleop') === 'true') ? true : ros_config.ROSBRIDGE_MANUAL_TELEOP,
+            batteryStatus: localStorage.getItem('batteryStatus') !== null ? localStorage.getItem('batteryStatus') === "true" : ros_config.ROSBRIDGE_BATTERY_STATUS,
+            manualTeleop: localStorage.getItem('manualTeleop') !== null ? localStorage.getItem('manualTeleop') === "true" : ros_config.ROSBRIDGE_MANUAL_TELEOP,
             invalidIP: false,
             invalidPort: false,
             invalidWidth: false,
@@ -83,7 +82,6 @@ class Settings extends Component {
         localStorage.setItem('rosbridgeServerPort', this.state.rosbridgeServerPort);
         localStorage.setItem('imageWidth', this.state.imageWidth);
         localStorage.setItem('imageHeight', this.state.imageHeight);
-        localStorage.setItem('batteryTopic', this.state.batteryTopic);
         if (this.state.rosbridgeServerIP !== storedIP || this.state.rosbridgeServerPort !== storedPort) {
             window.location.reload();
         }
@@ -93,7 +91,7 @@ class Settings extends Component {
     };
       
     render() {
-        const { ros, batteryStatus, batteryTopic, manualTeleop, showConfig, invalidIP, invalidPort, invalidWidth, invalidHeight } = this.state;
+        const { ros, batteryStatus, manualTeleop, showConfig, invalidIP, invalidPort, invalidWidth, invalidHeight } = this.state;
         return (
             <Container style={{ margin: "2%" }}>
                 <h1 id="-project-command-control-"><strong>Settings</strong></h1>
@@ -154,21 +152,6 @@ class Settings extends Component {
                     </FormGroup>
     
                     <FormGroup style={{ marginTop: "2%" }}>
-                         <FormGroup style={{ marginTop: "2%" }}>
-                            <Form.Check 
-                                name="showBattery" 
-                                type="checkbox"
-                                checked={batteryStatus} 
-                                onChange={(event) =>
-                                    this.setState({
-                                        batteryStatus: Boolean(this.updateShowBattery(event.target.checked)),
-                                    })
-                                }
-                                label="Show Battery Status" />
-                            {batteryStatus && (
-                                <Form.Control name="batteryTopic" onChange={this.handleInputChange} placeholder="/battery" style={{width: "20%"}}/>
-                            )}
-                        </FormGroup>
                         <Button onClick={this.handleSaveClick} variant="primary" style={{marginTop: "2%"}}>
                             Save
                         </Button>
@@ -185,23 +168,28 @@ class Settings extends Component {
                                 : 'Show Current Configuration'}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP').toString() || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort').toString() || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Image Width ]: {localStorage.getItem('imageWidth').toString() || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Image Height ] : {localStorage.getItem('imageHeight').toString() || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Show Battery ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
-                                {localStorage.getItem('batteryStatus') !== null ?
-                                    (localStorage.getItem('batteryStatus') === 'true' ?
-                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
-                                        : null)
-                                    : (ros_config.ROSBRIDGE_BATTERY_STATUS ?
-                                        <Dropdown.Item>[ Rosbridge Battery Topic ]: {localStorage.getItem('batteryTopic').toString() || ros_config.ROSBRIDGE_BATTERY_TOPIC}</Dropdown.Item>
-                                        : null)
-                                }
+                                <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Width ]: {localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Image Height ] : {localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT} </Dropdown.Item>
+                                <Dropdown.Item> [ Rosbridge Show Battery Status ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
                                 <Dropdown.Item> [ Rosbridge Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
+        
+                    <FormGroup style={{ marginTop: "2%" }}>
+                        <Form.Check 
+                            name="showBattery" 
+                            type="checkbox"
+                            checked={batteryStatus} 
+                            onChange={(event) =>
+                                this.setState({
+                                    batteryStatus: this.updateShowBattery(event.target.checked),
+                                })
+                            }
+                            label="Show Battery Status" />
+                    </FormGroup>
 
                     <FormGroup style={{marginTop: "2%"}}>
                         <Form.Check
@@ -211,12 +199,11 @@ class Settings extends Component {
                             checked={manualTeleop}
                             onChange={(event) =>
                                 this.setState({
-                                    manualTeleop: Boolean(this.updateManualTeleopState(event.target.checked)),
+                                    manualTeleop: this.updateManualTeleopState(event.target.checked),
                                 })
                             }
                         />
                     </FormGroup>
-
                     
                 </Form>
             </Container>
