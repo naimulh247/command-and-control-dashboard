@@ -31,6 +31,7 @@ class ROSConnect extends Component {
                     // change the ip address to local storage
                     const rosbridge_ip = localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP;
                     const rosbridge_port = localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT;
+                    // console.log('trying to connect to:', rosbridge_ip, rosbridge_port)
                     ros.connect(`ws://${rosbridge_ip}:${rosbridge_port}`)
                 }catch (error) {
                     console.log("connection error:", error);

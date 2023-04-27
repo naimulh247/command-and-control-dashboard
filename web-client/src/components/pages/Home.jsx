@@ -55,7 +55,7 @@ class Home extends Component {
                             {/* first version of Map doesnt work in class component structure */}
                             {/* <Map/> */}
                             {/* <VideoFeed ros={ros} /> */}
-                            <Map2/>
+                            <Map2 ros={ros}/>
                         </Col>
                     </Row>
                     <Row>
