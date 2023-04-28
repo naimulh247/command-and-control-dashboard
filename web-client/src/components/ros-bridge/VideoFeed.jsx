@@ -8,6 +8,11 @@ class VideoFeed extends Component {
         super(props);
         this.canvasRef = React.createRef();
         this.getVideoFeed = this.getVideoFeed.bind(this)
+
+        this.state = {
+            frameWidth: localStorage.getItem('frameWidth') || ros_config.ROSBRIDGE_FRAME_WIDTH,
+            frameHeight: localStorage.getItem('frameHeight') || ros_config.ROSBRIDGE_FRAME_HEIGHT,
+        }
     }
 
     componentDidMount() {
@@ -55,7 +60,7 @@ class VideoFeed extends Component {
         // create a new video_subscriber with the topics
         const video_subscriber = new window.ROSLIB.Topic({
             ros: ros,
-            name: '/raspicam_node/image_res/compressed',
+            name: `${ros_config.ROSBRIDGE_RASPICAM_TOPIC}`,
             messageType: 'sensor_msgs/CompressedImage',
         })
 
@@ -76,8 +81,8 @@ class VideoFeed extends Component {
     render() { 
         return (
             // this needs to be dynamic
-            <Container className='d-flex justify-content-center align-items-center'>
-                <canvas className='center' ref={this.canvasRef} width="640" height="200"></canvas>
+            <Container className='d-flex justify-content-center align-items-center' style={{paddingBottom: "1.5%"}}>
+                <canvas className='center' ref={this.canvasRef} width={this.state.frameWidth} height={this.state.frameHeight}></canvas>
             </Container>
         );
     }

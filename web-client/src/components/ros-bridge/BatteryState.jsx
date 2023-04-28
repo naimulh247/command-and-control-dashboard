@@ -39,7 +39,7 @@ class BatteryIndicator extends Component {
             ros: ros,
             name: `${localStorage.getItem('batteryTopic') || ros_config.ROSBRIDGE_BATTERY_TOPIC}`,
             messageType: 'sensor_msgs/BatteryState',
-            throttle_rate: 5000
+            throttle_rate: ros_config.ROSBRIDGE_BATTERY_STATE_THROTTLE
         });
         
         batteryStateListener.subscribe((message) => {
