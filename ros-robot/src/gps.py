@@ -30,11 +30,11 @@ class GPS:
             while True:
                 try:
                     s.connect((self.HOST, self.PORT))
+                    # The data is received in the RMC data format
+                    gps_data = s.recv(1024)
                     break
                 except ConnectionRefusedError:
                     continue
-            # The data is received in the RMC data format
-            gps_data = s.recv(1024)
 
         # Transform data into dictionary
         gps_keys = ['message_id', 'utc_time', 'status', 'latitude', 'ns_indicator', 'longitude', 'ew_indicator', 'speed_over_ground', 'course_over_ground', 'date', 'magnetic_variation', 'mode', 'checksum']
