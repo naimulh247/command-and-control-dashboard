@@ -27,7 +27,7 @@ class GPS:
         '''A method to receive the GPS coordinates from GPS2IP Lite.'''
         # Instantiate a client object
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            while:
+            while True:
                 try:
                     s.connect((self.HOST, self.PORT))
                     break
