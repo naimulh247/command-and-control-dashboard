@@ -4,8 +4,11 @@ class About extends Component {
     state = {  } 
     render() { 
         return (
-            <div>
+            <div style={{ margin: "3%" }}>
                 <h1 id="-project-command-control-"><strong>Project Command &amp; Control</strong></h1>
+
+                <div className="divider"></div>
+
                 <p>Team Members: </p>
                 <ul>
                     <li>Brandon J. Lacy (blacy@brandeis.edu)</li>
