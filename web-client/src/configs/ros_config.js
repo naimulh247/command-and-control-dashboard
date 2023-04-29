@@ -6,7 +6,7 @@ let ros_config = {
     ROSBRIDGE_BATTERY_STATE_THROTTLE: 5000,
     ROSBRIDGE_CMD_VEL: "/cmd_vel",
     ROSBRIDGE_ODOM: "/odom",
-    ROSBRIDGE_CAMERA_RGB_TOPIC: "/camera/rgb/image_raw/compressed",
+    ROSBRIDGE_CAMERA_TOPIC: "/camera/rgb/image_raw/compressed",
     ROSBRIDGE_RASPICAM_TOPIC: "/raspicam_node/image_res/compressed",
     ROSBRIDGE_IMAGE_CONFIGS: "/image_configs",
     ROSBRIDGE_ROSTOPICS_LIST: "/rostopic_list",

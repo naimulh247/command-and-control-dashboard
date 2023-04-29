@@ -6,12 +6,6 @@
   <!-- Start Image node to get camera on web client -->
   <node pkg="ros-robot" type="img_res.py" name="img_res"/>
 
-  <!-- Start GPS node to get GPS information for map on web client -->
-  <node pkg="ros-robot" type="gps.py" name="GPS">
-    <param name="HOST" type="string" value="172.20.38.175"/>
-    <param name="PORT" type="int" value="11123"/>
-  </node>
-
   <!-- Start gazebo sim with waffle robot within linemission world -->
   <include file="$(find prrexamples)/launch/linemission.launch">
     <arg name="model" value="waffle"/>
