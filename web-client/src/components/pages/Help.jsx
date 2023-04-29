@@ -48,18 +48,17 @@ class Help extends Component {
         <p>(P.S. this is assuming you already have ROS installed on your system, if not you can follow this <a href="http://wiki.ros.org/ROS/Installation">link</a> for instructions. Please note that for our testing purposes, we used the noetic version of ROS):</p>
         <ol>
           <li>
-            Launch the necessary ROS launch file for real robot testing:
+            SSH into your robot (for our intents and purposes, we utilized a TurtleBot3 Burger model)
+          </li>
+          <li>
+            Launch the necessary ROS launch file to run vital nodes such as rosbridge, gps, and image compression (use sim.launch for simulation in Gazebo):
             <code style={{marginLeft: "1%"}}>roslaunch ros-robot real.launch</code>
           </li>
           <li>
-            Launch the necessary ROS launch file for simulation robot testing:
-            <code style={{marginLeft: "1%"}}>roslaunch ros-robot sim.launch</code>
+            Run any other nodes that you want (wall following, line following, etc.)
           </li>
           <li>
-            Ensure that the ROSbridge server is running on the specified IP address and port within the launch file parameters.
-          </li>
-          <li>
-            SSH into your robot (for our intents and purposes, we utilized a TurtleBot3 Burger model)
+            Ensure that the web client has the correct Rosbridge server IP and port set within settings (you can check via the "current configurations" button).
           </li>
           <li>
             If you want the camera to show up, make sure that the correct camera topic is being published properly and that the VideoFeed component has the correct topic listed within the subscriber as sometimes it can be /raspicam or /camera, there should be config values for both already
