@@ -1,21 +1,42 @@
 import React, { Component } from 'react'
 
 class About extends Component {
-    state = {  } 
     render() { 
         return (
             <div style={{ margin: "3%" }}>
-                <h1 id="-project-command-control-"><strong>Project Command &amp; Control</strong></h1>
+                <h1 id="-project-command-control-" style={{marginBottom: "2%"}}><strong>Project Command &amp; Control</strong></h1>
 
-                <div className="divider"></div>
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                    <div style={{ display: "flex", marginRight: "5%", flexDirection: "column" }}>
+                        <strong>Team Members: </strong>{" "}
+                    </div>
+                    <div style={{ display: "flex", marginRight: "5%", flexDirection: "column" }}>
+                        <strong>Naimul Hasan</strong>{" "}
+                        <span>
+                            <a href="mailto:naimulhasan@brandeis.edu">Email</a> |{" "}
+                            <a href="https://www.linkedin.com/in/naimul-hasan/">LinkedIn</a>
+                        </span>
+                    </div>
+                    <div style={{ display: "flex", marginRight: "5%", flexDirection: "column" }}>
+                        <strong>James Kong</strong>{" "}
+                        <span>
+                            <a href="mailto:jameskong@brandeis.edu">Email</a> |{" "}
+                            <a href="https://www.linkedin.com/in/jamesdemingkong/">LinkedIn</a>
+                        </span>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        <strong>Brandon Lacy</strong>{" "}
+                        <span>
+                            <a href="mailto:blacy@brandeis.edu">Email</a> |{" "}
+                            <a href="https://www.linkedin.com/in/lacybrandonj/">LinkedIn</a>
+                        </span>
+                    </div>
+                </div>
 
-                <p>Team Members: </p>
-                <ul>
-                    <li>Brandon J. Lacy (blacy@brandeis.edu)</li>
-                    <li>Naimul Hasan (naimulhasan@brandeis.edu)</li>
-                    <li>James Kong (jameskong@brandeis.edu)</li>
-                </ul>
+                <div className="divider"/>
+
                 <h1 id="-general-overview-"><strong>General Overview</strong>:</h1>
+                
                 <p>The Campus Rover Command & Control project is a critical component of the Campus Rover Project at Brandeis University, facilitating remote control between the operator and the robot. The system consists of three main components: a web application, rosbridge, and ROS (Robot Operating System). These components work together to ensure seamless communication and execution of remote instructions.
                     With the new design, we have eliminated the need for an external API. Instead, the web application directly communicates with rosbridge and ROS. This direct communication streamlines the process and eliminates the complexity of an additional layer.
                     The web application, built using React, serves as the user interface for controlling the robot. It leverages the capabilities of rosbridge to establish a connection with ROS and send commands to the robot. The web application incorporates features such as a live camera feed, teleoperation controls, GPS mapping, and robot metrics.
@@ -30,7 +51,7 @@ class About extends Component {
                 <p>We hope to get a deeper understanding of how ROS core communicates, as we will have to work out communication between our web app and ROS core in both directions. ROS core will need to receive input information from our web app while our web app will also need to receive robot metric information. Additionally, this project will also aid in us getting more real-world project experience as we are packaging together our knowledge in ROS with a more deployable and understandable product that a beginning user can use.</p>
                 <p><strong>How we would like it to be evaluated:</strong></p>
                 <p>In terms of how we would like to be evaluated, I think convenience and understandability is the most important for a project like ours. Our project may seem simple on the surface to implement, but if we don&#39;t nail down the specifics of communication between ROS core and our web app, then the user experience will be sub-par on the web app side. </p>
-
+               
             </div>
         );
     }

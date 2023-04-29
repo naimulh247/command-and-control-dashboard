@@ -127,7 +127,7 @@ class Settings extends Component {
             <Container style={{ margin: "2%" }}>
                 <h1 id="-project-command-control-"><strong>Settings</strong></h1>
 
-                <div className="divider"></div>
+                <div className="divider"/>
 
                 <Row>
                     <Col>
@@ -215,7 +215,7 @@ class Settings extends Component {
                         </Button>
                     </FormGroup>
 
-                    <div className="divider"></div>
+                    <div className="divider"/>
     
                     <div style={{ display: 'flex', justifyContent: 'row', marginTop: "2%"}}>
                         <RosTopicList ros={ros}/>
@@ -263,7 +263,7 @@ class Settings extends Component {
                         />
                     </FormGroup>
                     
-                    <div className="divider"></div>
+                    <div className="divider"/>
 
                     <Button onClick={this.handleResetClick} variant="danger">
                         Reset to Default

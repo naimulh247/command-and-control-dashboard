@@ -6,7 +6,7 @@ class Help extends Component {
       <div style={{ margin: "3%" }}>
         <h1>Help</h1>
 
-        <div className="divider"></div>
+        <div className="divider"/>
 
         <h2>Installation & Running</h2>
         <p>To install and run the web client, follow these steps:</p>

@@ -45,7 +45,7 @@ class Home extends Component {
                             <RobotState ros={ros}/>
                             {batteryStatus && (
                                 <div>
-                                    <div className="divider"></div>
+                                    <div className="divider"/>
                                     <BatteryState ros={ros} />
                                 </div>
                             )}
