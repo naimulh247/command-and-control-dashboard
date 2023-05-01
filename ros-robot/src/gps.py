@@ -17,8 +17,8 @@ class GPS:
     def __init__(self):
         '''Initialize the publisher and instance variables.'''
         # Instance Variables
-        self.HOST = rospy.get_param('~HOST')
-        self.PORT = rospy.get_param('~PORT')
+        self.HOST = rospy.get_param('~HOST', '172.20.38.175')
+        self.PORT = rospy.get_param('~PORT', 11123)
 
         # Publisher
         self.publisher = rospy.Publisher('/gps', String, queue_size=1)
@@ -32,12 +32,25 @@ class GPS:
             gps_data = s.recv(1024)
 
         # Transform data into dictionary
-        gps_keys = ['message_id', 'utc_time', 'status', 'latitude', 'ns_indicator', 'longitude', 'ew_indicator', 'speed_over_ground', 'course_over_ground', 'date', 'magnetic_variation', 'mode', 'checksum']
-        gps_values = re.split(',|\*', gps_data.decode())
+        gps_keys = ['message_id', 'latitude', 'ns_indicator', 'longitude', 'ew_indicator']
+        gps_values = re.split(',|\*', gps_data.decode())[:5]
         gps_dict = dict(zip(gps_keys, gps_values))
 
-        # Remove unnecessary values
-        del gps_dict['checksum']
+        # Cleanse the coordinate data
+        for key in ['latitude', 'longitude']:
+            # Identify the presence of a negative number indicator
+            neg_num = False
+
+            # The GPS2IP application transmits a negative coordinate with a zero prepended
+            if gps_dict[key][0] == '0':
+                neg_num = True
+            
+            # Transform the longitude and latitude into a format that can be utilized by the front-end web-client
+            gps_dict[key] = float(gps_dict[key]) / 100
+
+            # Apply the negative if the clause was triggered
+            if neg_num:
+                gps_dict[key] = -1 * gps_dict[key]
 
         # Publish the decoded GPS data
         self.publisher.publish(f"'{str(gps_dict)}'")
