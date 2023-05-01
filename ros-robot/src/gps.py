@@ -6,6 +6,7 @@ A module with a GPS node.
 GPS2IP: http://www.capsicumdreams.com/gps2ip/
 '''
 
+import json
 import re
 import rospy
 import socket
@@ -53,7 +54,7 @@ class GPS:
                 gps_dict[key] = -1 * gps_dict[key]
 
         # Publish the decoded GPS data
-        self.publisher.publish(str(gps_dict))
+        self.publisher.publish(json.dumps(gps_dict))
 
 
 if __name__ == '__main__':
