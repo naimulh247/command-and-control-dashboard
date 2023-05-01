@@ -14,7 +14,7 @@ class Header extends Component {
                         <Nav.Link href="/about" className="navbar-text-style">About</Nav.Link>
                         <Nav.Link href="/help" className="navbar-text-style">Help</Nav.Link>
                         <Nav.Link href="/settings" className="navbar-text-style">Settings</Nav.Link>
-                        <Nav.Link href="https://github.com/campusrover/command-control" style={{ color: "#fff" }}>GitHub</Nav.Link>
+                        <Nav.Link href="https://github.com/campusrover/command-control" className="navbar-text-style">GitHub</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

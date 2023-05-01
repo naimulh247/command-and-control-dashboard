@@ -10,6 +10,7 @@ class RobotState extends Component {
         // bind `this` to the function 
         this.getRobotState = this.getRobotState.bind(this)
     }
+    
     state = { 
         x: 0,
         y: 0,

@@ -40,7 +40,7 @@ class GPS:
         del gps_dict['checksum']
 
         # Publish the decoded GPS data
-        self.publisher.publish(f"'{str(gps_dict)}'")
+        self.publisher.publish(str(gps_dict))
 
 
 if __name__ == '__main__':
