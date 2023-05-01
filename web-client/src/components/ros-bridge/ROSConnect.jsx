@@ -13,6 +13,7 @@ class ROSConnect extends Component {
         this.init_connection()
     }
 
+    //connect to ros and change the display status for it, making sure to use the locally stored value or the default ros_configs
     init_connection() {
         const ros = new window.ROSLIB.Ros();
         this.props.setRos(ros);

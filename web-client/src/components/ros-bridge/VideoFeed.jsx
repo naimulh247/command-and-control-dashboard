@@ -31,6 +31,8 @@ class VideoFeed extends Component {
       clearInterval(this.imageConfigInterval);
     }
     
+    //This function publishes image width and height configurations as a ROS topic. It checks if the ROS connection is initialized and 
+    //creates a new ROS topic to publish the configurations for the image compress Python node to subscribe to
     pubImageConfigs() {
       const { ros } = this.props;
 
@@ -53,6 +55,9 @@ class VideoFeed extends Component {
       imageConfig_publisher.publish(message);
     }
 
+    //This function subscribes to a ROS topic that provides a compressed video feed. It checks if the ROS connection is 
+    //initialized and creates a new ROS topic subscriber. When a new message is received, it updates the canvas element with the video feed. If no video feed is detected
+    //it changes the videoFeedDetected status to show a placeholder
     getVideoFeed() {
       const { ros } = this.props;
       const canvas = this.canvasRef.current;

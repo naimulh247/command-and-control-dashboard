@@ -13,6 +13,7 @@ class RosTopicList extends React.Component {
     this.getTopicList();
   }
 
+  //subscribe to rostopiclist topic to get a list of the current rostopics being published
   getTopicList() {
     const { ros } = this.props;
     // if ros is not intialized return
@@ -39,6 +40,7 @@ class RosTopicList extends React.Component {
     }
   }
 
+  //change status of menu state to open up the menu to display the ros topics
   toggleMenu(isOpen) {
     this.setState({ showMenu: isOpen });
   }

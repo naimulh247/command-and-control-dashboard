@@ -36,20 +36,24 @@ class Settings extends Component {
         this.setState({ ros });
     }
 
+    //Updates the manualTeleop state and stores the value in local storage (to switch to input boxes instead of joystick).
     updateManualTeleopState(newState) {
         localStorage.setItem('manualTeleop', newState);
         return newState;
     }
 
+    //Updates the batteryStatus state and stores the value in local storage (to show the battery percentage or not).
     updateShowBattery(newState) {
         localStorage.setItem('batteryStatus', newState);
         return newState;
     }
 
+    //Toggles the showConfig state based on the isOpen parameter (to show a list of the current setting configurations)
     toggleConfig(isOpen) {
         this.setState({ showConfig: isOpen });
     }
 
+    //Handles the input change event for the form inputs. Updates the corresponding state and performs validation for certain fields.
     handleInputChange = (event) => {
         const { name, value } = event.target;
       
@@ -81,10 +85,12 @@ class Settings extends Component {
       
     };
 
+    //Handles the form submit event. Prevents the default form submission behavior.
     handleFormSubmit = (event) => {
         event.preventDefault();
     };
 
+    //Handles the save button click event. Stores the input values in local storage and reloads the page if the server IP or port has changed. Displays an alert if any input field values are invalid.
     handleSaveClick = () => {
         const storedIP = localStorage.getItem('rosbridgeServerIP') || ros_config.rosbridgeServerIP;
         const storedPort = localStorage.getItem('rosbridgeServerPort') || ros_config.rosbridgeServerPort;
@@ -102,6 +108,7 @@ class Settings extends Component {
         }
     };
 
+    //Handles the reset button click event. Clears the local storage and reloads the page if the server IP or port has changed.
     handleResetClick = () => {
         const storedIP = this.state.rosbridgeServerIP
         const storedPort = this.state.rosbridgeServerPort
@@ -111,6 +118,7 @@ class Settings extends Component {
         }
     };
 
+    //Handles the clear button click event. Clears the input values and resets the corresponding invalid flags in the state.
     handleClearClick = () => {
         document.getElementsByName("rosbridgeServerIP")[0].value = "";
         document.getElementsByName("rosbridgeServerPort")[0].value = "";
