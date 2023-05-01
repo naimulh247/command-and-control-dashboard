@@ -51,6 +51,9 @@ class Help extends Component {
             SSH into your robot (for our intents and purposes, we utilized a TurtleBot3 Burger model)
           </li>
           <li>
+            Open the GPS2IP app (paid version T-T) -> settings -> under "NMEA messages to send," only check "GLL" -> home page -> ensure "Enable GPS2IP" is turned on at home page -> turn off iOS auto-sleep setting to prevent the app from stopping the publishing of GPS information -> lastly place the phone onto the robot
+          </li>
+          <li>
             Launch the necessary ROS launch file to run vital nodes such as rosbridge, gps, and image compression (use sim.launch for simulation in Gazebo):
             <code style={{marginLeft: "1%"}}>roslaunch ros-robot real.launch</code>
           </li>
