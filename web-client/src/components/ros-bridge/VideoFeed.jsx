@@ -111,8 +111,8 @@ class VideoFeed extends Component {
           {!videoFeedDetected && (
             <div
               style={{
-                width: frameWidth,
-                height: frameHeight,
+                width: 640,
+                height: 242,
                 margin: 'auto',
                 display: 'flex',
                 justifyContent: 'center',
