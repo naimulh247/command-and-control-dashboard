@@ -24,6 +24,11 @@ class GPS:
         # Publisher
         self.publisher = rospy.Publisher('/gps', String, queue_size=1)
 
+    def ddm_to_dd(self, degrees_minutes):
+        degrees, minutes = divmod(degrees_minutes, 100)
+        decimal_degrees = degrees + minutes / 60
+        return decimal_degrees
+
     def get_coords(self):
         '''A method to receive the GPS coordinates from GPS2IP Lite.'''
         # Instantiate a client object
@@ -45,9 +50,9 @@ class GPS:
             # The GPS2IP application transmits a negative coordinate with a zero prepended
             if gps_dict[key][0] == '0':
                 neg_num = True
-            
-            # Transform the longitude and latitude into a format that can be utilized by the front-end web-client
-            gps_dict[key] = float(gps_dict[key]) / 100
+
+            # Transform the longitude and latitude into decimal degrees
+            gps_dict[key] = self.ddm_to_dd(float(gps_dict[key]))
 
             # Apply the negative if the clause was triggered
             if neg_num:
@@ -55,7 +60,6 @@ class GPS:
 
         # Publish the decoded GPS data
         self.publisher.publish(json.dumps(gps_dict))
-
 
 if __name__ == '__main__':
     # Initialize a ROS node named GPS
