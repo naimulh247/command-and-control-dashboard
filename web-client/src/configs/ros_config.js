@@ -17,6 +17,7 @@ let ros_config = {
     ROSBRIDGE_BATTERY_TOPIC: "/battery_state",
     ROSBRIDGE_MANUAL_TELEOP: false,
     ROSBRIDGE_BATTERY_STATUS: true,
+    DARK_MODE: false
 }
 
 export default ros_config

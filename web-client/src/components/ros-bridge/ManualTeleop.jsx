@@ -95,7 +95,7 @@ class ManualTeleop extends Component {
 
     render() {
         return (
-            <Container className="bgStyle" style={{textAlign: "center"}}>
+            <Container style={{textAlign: "center"}}>
                 <Row>
                     <h4 className='mt-4 title'>Manual Twist Messages</h4>
                     <Col>

@@ -13,6 +13,7 @@ class VideoFeed extends Component {
           frameWidth: localStorage.getItem('frameWidth') || ros_config.ROSBRIDGE_FRAME_WIDTH,
           frameHeight: localStorage.getItem('frameHeight') || ros_config.ROSBRIDGE_FRAME_HEIGHT,
           videoFeedDetected: false,
+          isDarkMode: localStorage.getItem('darkMode') !== null ? localStorage.getItem('darkMode') === "true" : ros_config.DARK_MODE
         };
     }
 
@@ -102,8 +103,9 @@ class VideoFeed extends Component {
     }
 
     render() {
-      const { videoFeedDetected, frameWidth, frameHeight } = this.state;
-    
+      const { videoFeedDetected, frameWidth, frameHeight, isDarkMode } = this.state;
+      const placeHolderBG = isDarkMode ? 'BG-dark' : 'placeHolder-light';
+      console.log(placeHolderBG)
       return (
         <Container className="d-flex justify-content-center align-items-center" style={{ paddingBottom: '1.5%' }}>
           <canvas
@@ -115,6 +117,7 @@ class VideoFeed extends Component {
           ></canvas>
           {!videoFeedDetected && (
             <div
+              className={placeHolderBG}
               style={{
                 width: 640,
                 height: 242,
@@ -122,7 +125,6 @@ class VideoFeed extends Component {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                background: '#d3d3d3',
               }}
             >
               <div style={{ textAlign: 'center' }}>

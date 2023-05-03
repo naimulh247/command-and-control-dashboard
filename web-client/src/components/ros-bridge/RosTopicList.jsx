@@ -5,7 +5,10 @@ import ros_config from '../../configs/ros_config';
 class RosTopicList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topics: [], showMenu: false };
+    this.state = { 
+      topics: [], showMenu: false,
+      isDarkMode: localStorage.getItem('darkMode') !== null ? localStorage.getItem('darkMode') === "true" : ros_config.DARK_MODE
+    };
     this.toggleMenu = this.toggleMenu.bind(this);
   }
 
@@ -46,19 +49,20 @@ class RosTopicList extends React.Component {
   }
 
   render() {
-    const { topics, showMenu } = this.state;
+    const { topics, showMenu, isDarkMode } = this.state;
+    const menuBG = isDarkMode ? 'BG-dark' : 'BG-light';
 
     return (
       <Dropdown onToggle={this.toggleMenu} show={showMenu}>
         <Dropdown.Toggle id="dropdown-basic-button" variant="info">
           {showMenu ? 'Hide Available Topics' : 'Show Available Topics'}
         </Dropdown.Toggle>
-        <Dropdown.Menu className="scrollable-menu">
+        <Dropdown.Menu className={`scrollable-menu ${menuBG}`}>
           {topics.length === 0 ? (
             <Dropdown.Item>No current ROS topics being published!</Dropdown.Item>
           ) : (
             topics.map((topic, i) => (
-              <Dropdown.Item key={i}>{topic}</Dropdown.Item>
+              <Dropdown.Item key={i} className={menuBG}>{topic}</Dropdown.Item>
             ))
           )}
         </Dropdown.Menu>

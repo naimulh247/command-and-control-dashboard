@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Map, { Marker } from 'react-map-gl';
-
+import ros_config from '../../configs/ros_config';
 
 function Map2({ros}) {
     const [viewport, setviewport] = useState({
@@ -8,6 +8,10 @@ function Map2({ros}) {
         longitude: -71.258724,
         zoom: 19
     });
+
+    const [isDarkMode, setIsDarkMode] = useState(
+      localStorage.getItem('darkMode') !== null ? localStorage.getItem('darkMode') === 'true' : ros_config.DARK_MODE
+    );
 
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
@@ -32,6 +36,8 @@ function Map2({ros}) {
         };
       }, [ros]);
 
+    const darkMapStatus = isDarkMode ? 'mapbox://styles/mapbox/navigation-night-v1' : 'mapbox://styles/mapbox/streets-v11';
+
     return (
         //   <Map
         //     {...viewport}
@@ -54,7 +60,7 @@ function Map2({ros}) {
             {...viewport}
             // width="100%"
             // height="100%"
-            mapStyle="mapbox://styles/mapbox/streets-v11"
+            mapStyle={darkMapStatus}
             mapboxAccessToken='pk.eyJ1IjoibmFpbXVsaCIsImEiOiJjbGdnMTR4MnUwNzBoM2RydjFveHQ0emVpIn0.Jeb-L3dsxMkt6v6HTI8QyQ'
             onViewportChange={viewport => setviewport(viewport)}
 

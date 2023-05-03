@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class About extends Component {
     render() { 
         return (
-            <div style={{ margin: "3%" }}>
+            <div style={{ marginLeft: "3%", marginTop: "2%" }}>
                 <h1 id="-project-command-control-" style={{marginBottom: "2%"}}><strong>Project Command &amp; Control</strong></h1>
 
                 <div style={{ display: "flex", flexDirection: "row" }}>

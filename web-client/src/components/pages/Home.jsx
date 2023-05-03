@@ -30,7 +30,7 @@ class Home extends Component {
         const {ros, manualTeleop, batteryStatus} = this.state
         return (
             <main>
-                <Container>
+                <Container style={{marginBottom: "2%"}}>
                     <Row>
                         <Col>
                             <div style={{marginTop: "1.5%"}}>
