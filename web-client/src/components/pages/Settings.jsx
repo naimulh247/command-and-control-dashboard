@@ -109,10 +109,14 @@ class Settings extends Component {
         localStorage.setItem('frameWidth', this.state.frameWidth);
         localStorage.setItem('frameHeight', this.state.frameHeight);
         if (this.state.rosbridgeServerIP !== storedIP || this.state.rosbridgeServerPort !== storedPort) {
+            alert("Saved!")
             window.location.reload();
         }
         if (this.state.invalidIP === true || this.state.invalidPort === true || this.state.invalidWidth === true || this.state.invalidHeight === true || this.state.invalidFrameWidth === true || this.state.invalidFrameHeight === true) {
             alert("One or more input field values are invalid, please re-enter a valid input!")
+        }
+        else {
+            alert("Saved!")
         }
     };
 
@@ -250,7 +254,7 @@ class Settings extends Component {
                                 <Dropdown.Item className={currentConfigBG}> [ Video Frame Width & Height]: {localStorage.getItem('frameWidth') || ros_config.ROSBRIDGE_FRAME_WIDTH} x {localStorage.getItem('frameHeight') || ros_config.ROSBRIDGE_FRAME_HEIGHT}</Dropdown.Item>
                                 <Dropdown.Item className={currentConfigBG}> [ Show Battery Status ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
                                 <Dropdown.Item className={currentConfigBG}> [ Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
-                                <Dropdown.Item className={currentConfigBG}> [ Dark Mode Status ]: {localStorage.getItem('darkMode') !== null ? (localStorage.getItem('darkMode') === 'true' ? 'On' : 'Off') : (ros_config.DARK_MODE ? 'On' : 'Off')} </Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Dark Mode ]: {localStorage.getItem('darkMode') !== null ? (localStorage.getItem('darkMode') === 'true' ? 'On' : 'Off') : (ros_config.DARK_MODE ? 'On' : 'Off')} </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
