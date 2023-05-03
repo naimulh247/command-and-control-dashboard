@@ -109,14 +109,14 @@ class Settings extends Component {
         localStorage.setItem('frameWidth', this.state.frameWidth);
         localStorage.setItem('frameHeight', this.state.frameHeight);
         if (this.state.rosbridgeServerIP !== storedIP || this.state.rosbridgeServerPort !== storedPort) {
-            alert("Saved!")
+            alert("Your settings have been applied successfully.")
             window.location.reload();
         }
         if (this.state.invalidIP === true || this.state.invalidPort === true || this.state.invalidWidth === true || this.state.invalidHeight === true || this.state.invalidFrameWidth === true || this.state.invalidFrameHeight === true) {
             alert("One or more input field values are invalid, please re-enter a valid input!")
         }
         else {
-            alert("Saved!")
+            alert("Your settings have been applied successfully.")
         }
     };
 
