@@ -31,6 +31,10 @@ class Teleop extends Component {
             return
         }
         // console.log(ros_config.ROSBRIDGE_CMD_VEL, event);
+        const maxSpeed = 0.2;
+        const linearSpeed = event.y * maxSpeed;
+        const angularSpeed = -event.x * maxSpeed;
+
         const cmd_vel = new window.ROSLIB.Topic({
             ros: ros,
             name: `${ros_config.ROSBRIDGE_CMD_VEL}`,
@@ -39,14 +43,14 @@ class Teleop extends Component {
 
         const twist = new window.ROSLIB.Message({
             linear: {
-                x: 0.2 ,
+                x:  linearSpeed,
                 y: 0,
                 z: 0,
             },
             angular: {
                 x: 0,
                 y: 0,
-                z: -0.2,
+                z: angularSpeed,
             },
         });
 
@@ -68,8 +72,7 @@ class Teleop extends Component {
             ros: ros,
             name: `${ros_config.ROSBRIDGE_CMD_VEL}`,
             messageType: 'geometry_msgs/Twist',
-            throttle_rate: 10,
-            queue_size: 10
+            throttle_rate:z
         });
 
         const twist = new window.ROSLIB.Message({
