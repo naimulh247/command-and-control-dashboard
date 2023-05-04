@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Help extends Component {
   render() {
     return (
-      <div style={{ margin: "3%" }}>
+      <div style={{ marginLeft: "3%", marginTop: "2%" }}>
         <h1>Help</h1>
 
         <div className="divider"/>

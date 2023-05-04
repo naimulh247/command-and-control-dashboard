@@ -6,19 +6,18 @@ import About from '../pages/About';
 import Help from '../pages/Help';
 import Settings from '../pages/Settings';
 
-class Body extends Component {
-    state = {  } 
+class Body extends Component { 
     render() { 
         return (
             <Container>
-            <Router>
-                <Routes>
-                    <Route path='/' Component={Home} />
-                    <Route path='/about' Component={About} />
-                    <Route path='/help' Component={Help} />
-                    <Route path='/settings' Component={Settings} />
-                </Routes>
-            </Router>
+                <Router>
+                    <Routes>
+                        <Route path='/' Component={Home} />
+                        <Route path='/about' Component={About} />
+                        <Route path='/help' Component={Help} />
+                        <Route path='/settings' Component={Settings} />
+                    </Routes>
+                </Router>
             </Container>
         );
     }

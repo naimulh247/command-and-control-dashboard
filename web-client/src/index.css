@@ -5,6 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Light Mode */
+:root {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Dark Mode */
+.dark-mode {
+  background-color: rgb(33, 33, 33);
+  color: #ffffff;
 }
 
 .navbar-style {
@@ -12,21 +26,54 @@ body {
   padding-bottom: 1.5%;
   padding-left: 3%;
   background: rgb(28,78,128);
+  color: var(--text-color);
 }
 
 .navbar-text-style {
   color: #fff;
 }
 
+.navbar-dark-style {
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-left: 3%;
+  background: #424242;
+  color: var(--text-color);
+}
+
 .footer-style {
   background: rgb(28,78,128);
-  margin-bottom: 0;
+  padding-bottom: 0;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.footer-dark-style {
+  background: #424242;
+  padding-bottom: 0;
+  text-align: center;
+  color: var(--text-color);
 }
 
 .footer-p-style {
   color: #fff;
   padding-top: 1.5%;
   padding-bottom: 1.5%;
+}
+
+.placeHolder-light {
+  background: #E0E0E0;
+  color: var(--text-color);
+}
+
+.BG-light {
+  background: #F5F5F5;
+  color: var(--text-color);
+}
+
+.BG-dark {
+  background: #424242;
+  color: var(--text-color);
 }
 
 code {
@@ -36,17 +83,6 @@ code {
 
 main {
   min-height: 90vh;
-}
-
-.video-feed {
-  background-color: rgb(230, 255, 255);
-  height: 250%;
-  width: 100%;
-}
-
-.bgStyle {
-  width: fit-content;
-  margin: 1%;
 }
 
 .scrollable-menu {
@@ -61,7 +97,7 @@ main {
 }
 
 .connected {
-  margin-top: 1.5%;
+  padding-top: 1.5%;
 }
 
 .box {
@@ -90,52 +126,7 @@ main {
   padding: 5%
 }
 
-.showTopics {
-  position: relative;
-}
-
-.showTopics button {
-  background-color: rgb(107, 107, 107);
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.showTopics button:hover {
-  background-color: rgb(56, 56, 56);
-  color: white;
-}
-
-.showTopics ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #f1f1f1;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #ccc;
-  z-index: 1;
-}
-
-.showTopics ul li {
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.showTopics ul li:hover {
-  background-color: #ddd;
-}
-
-
+/* CSS for ManualTeleop.jsx buttons
 /* CSS from https://getcssscan.com/css-buttons-examples*/
 .button-3 {
   appearance: none;

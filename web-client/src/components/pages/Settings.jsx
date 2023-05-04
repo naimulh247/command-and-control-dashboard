@@ -18,6 +18,7 @@ class Settings extends Component {
             frameHeight: localStorage.getItem('frameHeight') || ros_config.ROSBRIDGE_FRAME_HEIGHT,
             batteryStatus: localStorage.getItem('batteryStatus') !== null ? localStorage.getItem('batteryStatus') === "true" : ros_config.ROSBRIDGE_BATTERY_STATUS,
             manualTeleop: localStorage.getItem('manualTeleop') !== null ? localStorage.getItem('manualTeleop') === "true" : ros_config.ROSBRIDGE_MANUAL_TELEOP,
+            isDarkMode: localStorage.getItem('darkMode') !== null ? localStorage.getItem('darkMode') === "true" : ros_config.DARK_MODE,
             invalidIP: false,
             invalidPort: false,
             invalidWidth: false,
@@ -36,20 +37,31 @@ class Settings extends Component {
         this.setState({ ros });
     }
 
+    //Updates the manualTeleop state and stores the value in local storage (to switch to input boxes instead of joystick).
     updateManualTeleopState(newState) {
         localStorage.setItem('manualTeleop', newState);
         return newState;
     }
 
+    //Updates the batteryStatus state and stores the value in local storage (to show the battery percentage or not).
     updateShowBattery(newState) {
         localStorage.setItem('batteryStatus', newState);
         return newState;
     }
 
+    //Updates the darkMode status to change the theme of the site between dark mode and light mode
+    updateDarkMode(newState) {
+        localStorage.setItem('darkMode', newState);
+        window.location.reload();
+        return newState;
+    }
+
+    //Toggles the showConfig state based on the isOpen parameter (to show a list of the current setting configurations)
     toggleConfig(isOpen) {
         this.setState({ showConfig: isOpen });
     }
 
+    //Handles the input change event for the form inputs. Updates the corresponding state and performs validation for certain fields.
     handleInputChange = (event) => {
         const { name, value } = event.target;
       
@@ -81,10 +93,12 @@ class Settings extends Component {
       
     };
 
+    //Handles the form submit event. Prevents the default form submission behavior.
     handleFormSubmit = (event) => {
         event.preventDefault();
     };
 
+    //Handles the save button click event. Stores the input values in local storage and reloads the page if the server IP or port has changed. Displays an alert if any input field values are invalid.
     handleSaveClick = () => {
         const storedIP = localStorage.getItem('rosbridgeServerIP') || ros_config.rosbridgeServerIP;
         const storedPort = localStorage.getItem('rosbridgeServerPort') || ros_config.rosbridgeServerPort;
@@ -95,13 +109,18 @@ class Settings extends Component {
         localStorage.setItem('frameWidth', this.state.frameWidth);
         localStorage.setItem('frameHeight', this.state.frameHeight);
         if (this.state.rosbridgeServerIP !== storedIP || this.state.rosbridgeServerPort !== storedPort) {
+            alert("Your settings have been applied successfully.")
             window.location.reload();
         }
         if (this.state.invalidIP === true || this.state.invalidPort === true || this.state.invalidWidth === true || this.state.invalidHeight === true || this.state.invalidFrameWidth === true || this.state.invalidFrameHeight === true) {
             alert("One or more input field values are invalid, please re-enter a valid input!")
         }
+        else {
+            alert("Your settings have been applied successfully.")
+        }
     };
 
+    //Handles the reset button click event. Clears the local storage and reloads the page if the server IP or port has changed.
     handleResetClick = () => {
         const storedIP = this.state.rosbridgeServerIP
         const storedPort = this.state.rosbridgeServerPort
@@ -111,6 +130,7 @@ class Settings extends Component {
         }
     };
 
+    //Handles the clear button click event. Clears the input values and resets the corresponding invalid flags in the state.
     handleClearClick = () => {
         document.getElementsByName("rosbridgeServerIP")[0].value = "";
         document.getElementsByName("rosbridgeServerPort")[0].value = "";
@@ -122,10 +142,12 @@ class Settings extends Component {
     };
       
     render() {
-        const { ros, batteryStatus, manualTeleop, showConfig, invalidIP, invalidPort, invalidWidth, invalidHeight, invalidFrameWidth, invalidFrameHeight } = this.state;
+        const { ros, batteryStatus, manualTeleop, showConfig, isDarkMode, invalidIP, invalidPort, invalidWidth, invalidHeight, invalidFrameWidth, invalidFrameHeight } = this.state;
+        const currentConfigBG = isDarkMode ? 'BG-dark' : 'BG-light';
+
         return (
-            <Container style={{ margin: "2%" }}>
-                <h1 id="-project-command-control-"><strong>Settings</strong></h1>
+            <Container>
+                <h1 id="-project-command-control-" style={{paddingTop: "1%"}}><strong>Settings</strong></h1>
 
                 <div className="divider"/>
 
@@ -225,47 +247,64 @@ class Settings extends Component {
                                 ? 'Hide Current Configuration'
                                 : 'Show Current Configuration'}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
-                                <Dropdown.Item> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
-                                <Dropdown.Item> [ Video Resolution Width & Height ]: {localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH} x {localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT}</Dropdown.Item>
-                                <Dropdown.Item> [ Video Frame Width & Height]: {localStorage.getItem('frameWidth') || ros_config.ROSBRIDGE_FRAME_WIDTH} x {localStorage.getItem('frameHeight') || ros_config.ROSBRIDGE_FRAME_HEIGHT}</Dropdown.Item>
-                                <Dropdown.Item> [ Show Battery Status ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
-                                <Dropdown.Item> [ Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
+                            <Dropdown.Menu className={currentConfigBG}>
+                                <Dropdown.Item className={currentConfigBG}> [ Rosbridge Server IP ] : {localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP} </Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Rosbridge Server Port ]: {localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT} </Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Video Resolution Width & Height ]: {localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH} x {localStorage.getItem('imageHeight') || ros_config.ROSBRIDGE_IMAGE_HEIGHT}</Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Video Frame Width & Height]: {localStorage.getItem('frameWidth') || ros_config.ROSBRIDGE_FRAME_WIDTH} x {localStorage.getItem('frameHeight') || ros_config.ROSBRIDGE_FRAME_HEIGHT}</Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Show Battery Status ]: {localStorage.getItem('batteryStatus') !== null ? (localStorage.getItem('batteryStatus') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_BATTERY_STATUS ? 'On' : 'Off')} </Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Manual Input Teleoperation ]: {localStorage.getItem('manualTeleop') !== null ? (localStorage.getItem('manualTeleop') === 'true' ? 'On' : 'Off') : (ros_config.ROSBRIDGE_MANUAL_TELEOP ? 'On' : 'Off')} </Dropdown.Item>
+                                <Dropdown.Item className={currentConfigBG}> [ Dark Mode ]: {localStorage.getItem('darkMode') !== null ? (localStorage.getItem('darkMode') === 'true' ? 'On' : 'Off') : (ros_config.DARK_MODE ? 'On' : 'Off')} </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
-        
-                    <FormGroup style={{ marginTop: "2%" }}>
-                        <Form.Check 
-                            name="showBattery" 
-                            type="checkbox"
-                            checked={batteryStatus} 
-                            onChange={(event) =>
-                                this.setState({
-                                    batteryStatus: this.updateShowBattery(event.target.checked),
-                                })
-                            }
-                            label="Show Battery Status" />
-                    </FormGroup>
 
-                    <FormGroup style={{marginTop: "2%"}}>
-                        <Form.Check
-                            name="manualTeleop"
-                            type="checkbox"
-                            label="Manual Input Teleoperation"
-                            checked={manualTeleop}
-                            onChange={(event) =>
-                                this.setState({
-                                    manualTeleop: this.updateManualTeleopState(event.target.checked),
-                                })
-                            }
-                        />
-                    </FormGroup>
+                    <div style={{display: "flex", justifyContent: "row", marginTop: "2%"}}>
+                        <FormGroup style={{ marginRight: "5%" }}>
+                            <Form.Check 
+                                name="showBattery" 
+                                type="checkbox"
+                                checked={batteryStatus} 
+                                onChange={(event) =>
+                                    this.setState({
+                                        batteryStatus: this.updateShowBattery(event.target.checked),
+                                    })
+                                }
+                                label="Show Battery Status" />
+                        </FormGroup>
+
+                        <FormGroup style={{marginRight: "5%"}}>
+                            <Form.Check
+                                name="manualTeleop"
+                                type="checkbox"
+                                label="Manual Input Teleoperation"
+                                checked={manualTeleop}
+                                onChange={(event) =>
+                                    this.setState({
+                                        manualTeleop: this.updateManualTeleopState(event.target.checked),
+                                    })
+                                }
+                            />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Form.Check
+                                name="darkMode"
+                                type="checkbox"
+                                label="Dark Mode"
+                                checked={isDarkMode}
+                                onChange={(event) =>
+                                    this.setState({
+                                        isDarkMode: this.updateDarkMode(event.target.checked),
+                                    })
+                                }
+                            />
+                        </FormGroup>
+                    </div>
                     
                     <div className="divider"/>
 
-                    <Button onClick={this.handleResetClick} variant="danger">
+                    <Button onClick={this.handleResetClick} variant="danger" style={{marginBottom: "2%"}}>
                         Reset to Default
                     </Button>
                 </Form>
