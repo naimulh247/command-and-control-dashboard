@@ -1,0 +1,20 @@
+<launch>
+
+  <!-- Publishes /rostopic_list which is output from "rostopic list" command -->
+  <node pkg="ros-robot" type="rosTopicList.py" name="rosTopicList" output="screen"/>
+
+  <!-- Start Image node to get camera on web client -->
+  <node pkg="ros-robot" type="img_res.py" name="img_res"/>
+
+  <!-- Start GPS node to get GPS information for map on web client -->
+  <node pkg="ros-robot" type="gps.py" name="GPS">
+    <param name="HOST" type="string" value="172.20.38.175"/>
+    <param name="PORT" type="int" value="11123"/>
+  </node>
+
+  <!-- Start rosbridge server to connect with web client -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
+    <arg name="port" value="9090"/>
+  </include>
+
+</launch>
