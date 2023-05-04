@@ -72,7 +72,8 @@ class Teleop extends Component {
             ros: ros,
             name: `${ros_config.ROSBRIDGE_CMD_VEL}`,
             messageType: 'geometry_msgs/Twist',
-            throttle_rate:z
+            throttle_rate: 10,
+            queue_size: 1
         });
 
         const twist = new window.ROSLIB.Message({
