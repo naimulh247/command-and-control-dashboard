@@ -25,7 +25,8 @@ function Map2({ros}) {
         const gpsSubscriber = new window.ROSLIB.Topic({
           ros: ros,
           name: '/gps',
-          messageType: 'std_msgs/String'
+          messageType: 'std_msgs/String',
+          queue_size: 1,
         });
     
         gpsSubscriber.subscribe(message => {
