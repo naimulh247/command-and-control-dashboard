@@ -31,7 +31,7 @@ class Teleop extends Component {
             return
         }
         // console.log(ros_config.ROSBRIDGE_CMD_VEL, event);
-        const maxSpeed = 0.2;
+        const maxSpeed = 0.5;
         const linearSpeed = event.y * maxSpeed;
         const angularSpeed = -event.x * maxSpeed;
 
