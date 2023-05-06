@@ -46,7 +46,9 @@ class VideoFeed extends Component {
       const imageConfig_publisher = new window.ROSLIB.Topic({
           ros: ros,
           name: `${ros_config.ROSBRIDGE_IMAGE_CONFIGS}`,
-          messageType: 'std_msgs/String'
+          messageType: 'std_msgs/String',
+          queue_size: 1,
+          throttle_rate: 10,
       });
 
       const imageWidth = localStorage.getItem('imageWidth') || ros_config.ROSBRIDGE_IMAGE_WIDTH;
