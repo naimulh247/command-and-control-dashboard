@@ -63,11 +63,11 @@ class RobotState extends Component {
         // })
 
         // get position and velocity using odom
-        // const odom_subscriber = new window.ROSLIB.Topic({
-        //     ros: ros,
-        //     name: `${ros_config.ROSBRIDGE_ODOM}`,
-        //     messageType: "nav_msgs/Odometry",
-        // });
+        const odom_subscriber = new window.ROSLIB.Topic({
+            ros: ros,
+            name: `${ros_config.ROSBRIDGE_ODOM}`,
+            messageType: "nav_msgs/Odometry",
+        });
     
         odom_subscriber.subscribe((message) => {
             this.setState({
