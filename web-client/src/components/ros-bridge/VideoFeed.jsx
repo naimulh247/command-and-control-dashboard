@@ -24,7 +24,7 @@ class VideoFeed extends Component {
         }, ros_config.CHECK_IMAGE_CONFIG);
     }
 
-    componentDidUpdate( ) {
+    componentDidUpdate() {
       this.getVideoFeed()
     }
 

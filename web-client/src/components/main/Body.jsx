@@ -12,6 +12,7 @@ class Body extends Component {
             <Container>
                 <Router>
                     <Routes>
+                        {/* Routing for different pages */}
                         <Route path='/' Component={Home} />
                         <Route path='/about' Component={About} />
                         <Route path='/help' Component={Help} />

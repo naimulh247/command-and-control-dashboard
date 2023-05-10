@@ -3,7 +3,7 @@ import { Alert } from 'react-bootstrap';
 import ros_config from '../../configs/ros_config';
 
 class ROSConnect extends Component {
-
+    // get the global variables as props.ros
     constructor(props) {
         super(props);
         this.state = { connected : false}
@@ -39,7 +39,7 @@ class ROSConnect extends Component {
                 }
             }, ros_config.RECONNECTION_TIMEOUT); 
         })
-
+        // try loading configuration from local storage otherwise default to the config file
         try{
             const rosbridge_ip = localStorage.getItem('rosbridgeServerIP') || ros_config.ROSBRIDGE_SERVER_IP;
             const rosbridge_port = localStorage.getItem('rosbridgeServerPort') || ros_config.ROSBRIDGE_SERVER_PORT;
