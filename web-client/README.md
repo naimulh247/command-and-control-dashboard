@@ -4,11 +4,17 @@ This project was `roslibjs` and `bootstrap`
 
 ## Requirements and Versions
 
-To get started and locally run the project in development move please have the the following installed
+To get started and locally run the project in development move please have the following installed
   * nodejs v18.4.0
   * npm v9.5.0
  
- In this current directory, you need to run:
+A helper script has been provides, `setup.sh`, please execute it by running the following command:
+
+`bash setup.sh`
+
+The script will download the correct version of nodejs, npm, and rosbridge-server needed for this project
+
+In this current directory, you need to run:
  
  ###  `npm i`
  
