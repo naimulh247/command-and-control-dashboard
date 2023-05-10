@@ -25,7 +25,7 @@ class Teleop extends Component {
         const { ros } = this.props
         // console.log(ros);
         // console.log(event);
-        // is ros is not intialized return
+        // if ros is not intialized return
         if (!ros) {
             console.warn("ROS/ RosBridge not intialized")
             return
@@ -43,7 +43,7 @@ class Teleop extends Component {
 
         const twist = new window.ROSLIB.Message({
             linear: {
-                x:  linearSpeed,
+                x: linearSpeed,
                 y: 0,
                 z: 0,
             },

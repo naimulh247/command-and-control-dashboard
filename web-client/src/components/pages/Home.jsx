@@ -3,9 +3,8 @@ import ROSConnect from '../ros-bridge/ROSConnect';
 import Teleop from '../ros-bridge/Teleop';
 import { Col, Container, Row } from 'react-bootstrap';
 import RobotState from '../ros-bridge/RobotState';
-import Map from '../ros-bridge/Map';
 import VideoFeed from '../ros-bridge/VideoFeed';
-import Map2 from '../ros-bridge/Map2';
+import GPSMap from '../ros-bridge/Map';
 import ManualTeleop from '../ros-bridge/ManualTeleop';
 import ros_config from '../../configs/ros_config';
 import BatteryState from '../../components/ros-bridge/BatteryState'
@@ -13,11 +12,13 @@ import BatteryState from '../../components/ros-bridge/BatteryState'
 class Home extends Component {
     constructor(props) {
         super(props);
+        // create global variables to be passed to other components
         this.state = {
             ros: null,
             batteryStatus: localStorage.getItem('batteryStatus') !== null ? localStorage.getItem('batteryStatus') === "true" : ros_config.ROSBRIDGE_BATTERY_STATUS,
             manualTeleop: localStorage.getItem('manualTeleop') !== null ? localStorage.getItem('manualTeleop') === "true" : ros_config.ROSBRIDGE_MANUAL_TELEOP,
         }
+        // set rosconnection
         this.setRos = this.setRos.bind(this);
     }
 
@@ -52,10 +53,7 @@ class Home extends Component {
                             
                         </Col>
                         <Col>
-                            {/* first version of Map doesnt work in class component structure */}
-                            {/* <Map/> */}
-                            {/* <VideoFeed ros={ros} /> */}
-                            <Map2 ros={ros}/>
+                            <GPSMap ros={ros}/>
                         </Col>
                     </Row>
                     <Row>
