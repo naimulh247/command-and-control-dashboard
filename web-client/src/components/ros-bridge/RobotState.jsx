@@ -63,11 +63,11 @@ class RobotState extends Component {
         // })
 
         // get position and velocity using odom
-        const odom_subscriber = new window.ROSLIB.Topic({
-            ros: ros,
-            name: `${ros_config.ROSBRIDGE_ODOM}`,
-            messageType: "nav_msgs/Odometry",
-        });
+        // const odom_subscriber = new window.ROSLIB.Topic({
+        //     ros: ros,
+        //     name: `${ros_config.ROSBRIDGE_ODOM}`,
+        //     messageType: "nav_msgs/Odometry",
+        // });
     
         odom_subscriber.subscribe((message) => {
             this.setState({
@@ -79,6 +79,22 @@ class RobotState extends Component {
                 angular_velocity: message.twist.twist.angular.z.toFixed(2),
             });
         });
+         // subscribe to the gps data being published from the app through ros
+        //  const gpsSubscriber = new window.ROSLIB.Topic({
+        //     ros: ros,
+        //     name: '/gps',
+        //     messageType: 'std_msgs/String',
+        //     queue_size: 1,
+        //   });
+      
+        //   gpsSubscriber.subscribe(message => {
+        //       // console.log(message)
+        //       const data = JSON.parse(message.data);
+        //         this.setState({
+        //             x: data.longitude,
+        //             y: data.latitude
+        //         })
+        //   })
     }
     
     render() { 
@@ -88,8 +104,8 @@ class RobotState extends Component {
                     <h4 className='mt-4'>Positions</h4>
                     <p className='mt-0'>x: {this.state.x} </p>
                     <p className='mt-0'>y: {this.state.y} </p>
-                    <p className='mt-0'>z: {this.state.z} </p>
-                    <p className='mt-0'>Orientation: {this.state.orientation} </p>
+                    {/* <p className='mt-0'>z: {this.state.z} </p> */}
+                    {/* <p className='mt-0'>Orientation: {this.state.orientation} </p> */}
                 </Col>
                 <Col>
                     <h4 className='mt-4'>Velocities</h4>
