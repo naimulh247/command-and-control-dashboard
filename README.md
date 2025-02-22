@@ -47,5 +47,5 @@ Here are some screenshots of the application in action:
 
 ## **Presentation Videos**
 Check out our presentation videos:
-- [Video 1](screenshots/Command%20Control%20Demo%20Video.mp4)
+- [Video](screenshots/Command%20Control%20Demo%20Video.mp4)
 
